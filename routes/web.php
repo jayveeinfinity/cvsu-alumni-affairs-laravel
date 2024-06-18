@@ -23,8 +23,8 @@ Route::get('/signin', function () {
 
 Route::get('/auth', [AuthController::class, 'redirectToGoogle']);
 Route::get('/auth/callback', [AuthController::class, 'handleGoogleCallback']);
-Route::get('/signout', [AuthController::class, 'logout'])->name('signup');
-Route::get('/signup', [RegistrationController::class, 'create']);
+Route::get('/signout', [AuthController::class, 'logout'])->name('signout');
+Route::get('/signup', [RegistrationController::class, 'create'])->name('signup');
 
 Route::prefix('user')->group(function () {
     Route::get('/', function() {
@@ -58,11 +58,17 @@ Route::middleware('auth')->group(function () {
     */
     Route::prefix('admin')->group(function () {
         Route::get('/', function() {
-            return redirect()->route('admin.home');
+            return redirect()->route('admin.dashboard');
         });
-        Route::get('/home', function () {
-            return view('dashboard');
-        })->name('admin.home');
+        Route::get('/dashboard', function () {
+            return view('admin.dashboard');
+        })->name('admin.dashboard');
+        Route::get('/alumni-directory', function() {
+            $date_type = 'All';
+            $status = 'Confirmed';
+
+            return view('admin.alumni-directory.index', compact('date_type', 'status'));
+        })->name('admin.alumni-directory');
     });
 
     /*

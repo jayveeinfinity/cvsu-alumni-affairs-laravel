@@ -6,7 +6,7 @@
 
 @section('main-content') 
 <div class="container-fluid ils-gradient-warning-alt p-0 m-0" style="height: 300px;">
-    <div style="height: 300px; background-image: url({{ asset('images/landing/library-orange.jpg') }}) ; background-size: cover; background-position: 100% 77%;"></div>
+    <div style="height: 300px; background-image: url({{ asset('/images/landing/library.jpg') }}) ; background-size: cover; background-position: 100% 77%;"></div>
 </div>
 <div class="container-fluid">
     <div class="container p-3" style="margin-top: -300px;">
@@ -101,15 +101,17 @@
                         <div class="card">
                             <div class="card-header p-2">
                                 <ul class="nav nav-pills">
-                                    <li class="nav-item"><a class="nav-link active" href="#reservations" data-toggle="tab">Reservations</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#pastreservations" data-toggle="tab">Past Reservations</a></li>
+                                    <li class="nav-item"><a class="nav-link active" href="#reservations" data-toggle="tab">Overview</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#pastreservations" data-toggle="tab">Educational Background</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#pastreservations" data-toggle="tab">Work Experience</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#pastreservations" data-toggle="tab">Certification & Awards</a></li>
                                 </ul>
                             </div>
                             <div class="card-body">
                                 <div class="tab-content">
                                     <div class="active tab-pane" id="reservations">
-                                        <h5>My Reservations</h5>
-                                        <p class="text-muted">No active reservations yet.</p>
+                                        <h5>Overview</h5>
+                                        <!-- <p class="text-muted">No active reservations yet.</p>
                                         <div class="card">
                                             <div class="card-horizontal">
                                                 @php
@@ -135,11 +137,11 @@
                                             <div class="card-footer">
                                                 <small class="text-muted">Date confirmed: {{ $reservation_date->format('F d, Y') }}</small>
                                             </div>
-                                        </div>
-                                    </div>
+                                        </div>-->
+                                    </div> 
                                     <div class="tab-pane" id="pastreservations">
-                                        <h5>Past Reservations</h5>
-                                        <p class="text-muted">No past reservations yet.</p>
+                                        <h5>Educational background</h5>
+                                        <p class="text-muted">No educational background yet.</p>
                                     </div>
                                 </div>
                             </div>
