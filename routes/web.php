@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\MailController;
+use App\Http\Controllers\UserRequestController;
+use App\Models\UserRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +23,21 @@ Route::get('/signin', function () {
     return view('auth.signin');
 })->name('signin');
 
-Route::get('/auth', [AuthController::class, 'redirectToGoogle']);
-Route::get('/auth/callback', [AuthController::class, 'handleGoogleCallback']);
+Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 Route::get('/signout', [AuthController::class, 'logout'])->name('signout');
-Route::get('/signup', [RegistrationController::class, 'create'])->name('signup');
+
+Route::get('/signup', [UserRequestController::class, 'create'])->name('signup');
+Route::post('/signup', [UserRequestController::class, 'store'])->name('userquest.store');
+
+Route::get('/approved/test', function() {
+    return view('mails.user_requests.welcome');
+});
+
+Route::get('/approved', function() {
+    $mailController = new MailController();
+    $mailController->sendWelcomeEmail('jayveeinfinity@gmail.com', 'John Vincent Bonza');
+});
 
 Route::prefix('user')->group(function () {
     Route::get('/', function() {
@@ -67,7 +80,9 @@ Route::middleware('auth')->group(function () {
             $date_type = 'All';
             $status = 'Confirmed';
 
-            return view('admin.alumni-directory.index', compact('date_type', 'status'));
+            $userRequests = UserRequest::all();
+
+            return view('admin.alumni-directory.index', compact('date_type', 'status', 'userRequests'));
         })->name('admin.alumni-directory');
     });
 

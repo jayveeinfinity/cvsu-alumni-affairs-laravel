@@ -1,5 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.tailwind')
 
-@section('content') 
+@section('main-content-header')
+    @include('partials.header')
+@endsection
+
+@section('main-content') 
 LANDING
 @endsection
