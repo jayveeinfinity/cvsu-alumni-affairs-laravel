@@ -35,34 +35,50 @@
                     </div>
                     <div class="card-body">
                         <div class="dataTables_wrapper dt-bootstrap4">
-                            <div class="row px-2 pt-0 pb-3">
+                            <!-- <div class="row px-2 pt-0 pb-3">
                                 <div class="btn-group mr-3" role="group" aria-label="Basic example">
                                     <a type="button" class="{{ $date_type == 'All' ? 'btn btn-primary' : 'btn btn-outlined btn-default' }}" href="{{ route('admin.alumni-directory', ['date_type' => 'All']) }}">All</a>
                                     <a type="button" class="{{ $date_type == 'Today' ? 'btn btn-primary' : 'btn btn-outlined btn-default' }}" href="{{ route('admin.alumni-directory', ['date_type' => 'Today']) }}">Today</a>
                                     <a type="button" class="{{ $date_type == 'Recent' ? 'btn btn-primary' : 'btn btn-outlined btn-default' }}" href="{{ route('admin.alumni-directory', ['date_type' => 'Recent']) }}">Recent</a>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row">
                                 <div class="col-12" style="position: relative;">
                                     <table class="table table-bordered table-striped">
-                                        <!-- <thead>
+                                        <thead>
                                             <tr>
-                                                <th>Date</th>
-                                                <th>Time</th>
-                                                <th>Learning Space</th>
-                                                <th>Reservee Name</th>
-                                                <th>Status</th>
-                                                <th>Processed By</th>
+                                                <th>#</th>
+                                                <th>Email</th>
+                                                <th>Student Number</th>
+                                                <th>Name</th>
+                                                <th>Course</th>
+                                                <th>Year Graduated</th>
                                                 <th>Actions</th>
                                             </tr>
-                                        </thead> -->
+                                        </thead>
                                         <tbody>
-                                            <p>No reservations for today.</p>
+                                            @forelse ($userRequests as $userRequest)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $userRequest->email }}</td>
+                                                    <td>{{ $userRequest->student_number }}</th>
+                                                    <td>{{ $userRequest->name }}</td>
+                                                    <td>{{ $userRequest->course }}</td>
+                                                    <td>{{ $userRequest->year_graduated }}</th>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-success">
+                                                            Approved
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <p>No records yet.</p>
+                                            @endforelse
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-sm-12 col-md-5">
                                     <div class="dataTables_info">Showing 1 to 1 of {{ 1 }} {{ Str::plural('entry', 1) }}</div>
                                 </div>
@@ -71,7 +87,7 @@
                                         <ul class="pagination"></ul>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

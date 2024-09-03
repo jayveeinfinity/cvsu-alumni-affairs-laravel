@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\GoogleUserInfo;
 use Exception;
 use App\Models\User;
+use App\Models\UserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
@@ -46,10 +47,14 @@ class AuthController extends Controller
             ]);
 
             $user = User::where('email', $googleUserInfo->email)->first();
-            // if(!$user) {
-            //     dd('user had no access');
-            //     return;
-            // }
+            if(!$user) {
+                $userRequest = UserRequest::where('email', $googleUserInfo->email)->first();
+                if(!$userRequest) {
+                    return redirect()->route('signin')->with('message', 'Account not registered sent! To register, click "Create an account" below.');
+                } else {
+                    return redirect()->route('signin')->with('message', 'Account is pending! Kindly wait and check your email account to complete the registration process.');
+                }
+            }
             
             Auth::login($user);
             return redirect()->intended('/user/profile');

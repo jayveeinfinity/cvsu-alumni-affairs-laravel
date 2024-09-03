@@ -1,6 +1,10 @@
-@extends('layouts.signin')
+@extends('layouts.tailwind')
 
-@section('content') 
+@section('title')
+    Sign in &sdot; 
+@endsection
+
+@section('main-content') 
 <div class="h-full flex justify-center">
     <div class="h-screen flex lg:flex flex-row w-full h-screen">
         <div class="flex bg-cover bg-center h-full lg:w-1/2 flex flex-col bg-cover bg-center h-full" style="background-image: url('images/landing/CvSU.jpg');">
@@ -17,21 +21,26 @@
                         <h1 class="text-2xl font-medium text-center mb-2 text-gray-700">Accessing the CvSU - Office of Alumni Affairs System
                         <br>
                         <span class="text-base font-normal">
-                            <i>(For librarian and library staffs only)</i>
+                            <i>(For alumni students and authorized personnel of CvSU Main)</i>
                         </span>
                         </h1>
-                        <hr class="mb-2">
+                        <!-- <hr class="mb-2">
                         <p class="text-center text-lg mb-6 p-2 font-semibold text-gray-700 tracking-wide">
                             The CvSU Control Center intelligently adapts based on your login information. It dynamically presents the modules you need for essential library tasks
-                                within the Ladislao N. Diwa Memorial Library system.</p>
+                                within the Ladislao N. Diwa Memorial Library system.</p> -->
                     </div>
-                    <div class="flex items-center justify-center ">
-                        <a href="{{ url('auth/google') }}"                 
+                    <div class="flex flex-col items-center justify-center">
+                        <a href="{{ route('auth.google') }}"                 
                             class="px-4 py-2 border flex gap-2 border-slate-200 rounded-lg text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow transition duration-150">
                             <img class="w-6 h-6" src="images/CvSU-logo-64x64.webp"
                                 loading="lazy" alt="google logo">
                             <span class="text-gray-700">Sign in with CvSU Email</span>
                         </a>
+                        @if(session('message'))
+                            <div class="p-3 bg-red-700 text-white rounded text-sm mt-3">
+                                {{ session('message') }}
+                            </div>
+                        @endif
                     </div>
                     </div>
                     <div class="absolute bottom-0 text-center ml-4 sm:ml-10 md:ml-20 lg:hidden">
@@ -53,13 +62,18 @@
                                 The CvSU Control Center intelligently adapts based on your login information. It dynamically presents the modules you need for essential library tasks
                                 within the Ladislao N. Diwa Memorial Library system.</p> -->
                         </div>
-                        <div class="flex items-center justify-center ">
-                            <a href="{{ url('auth') }}"                 
+                        <div class="flex flex-col items-center justify-center">
+                            <a href="{{ route('auth.google') }}"                 
                                 class="px-4 py-2 border flex gap-2 border-slate-200 rounded-lg text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow transition duration-150">
                                 <img class="w-6 h-6" src="images/Google-logo-512x512.webp"
                                     loading="lazy" alt="google logo">
                                 <span class="text-gray-700">Sign in with Google</span>
                             </a>
+                            @if(session('message'))
+                                <div class="p-3 bg-red-700 text-white rounded text-sm mt-3">
+                                    {{ session('message') }}
+                                </div>
+                            @endif
                         </div>
                         <hr class="my-6">
                         <div class="flex items-center justify-center flex-col">

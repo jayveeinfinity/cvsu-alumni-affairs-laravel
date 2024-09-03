@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequests\StoreRequest;
+use App\Models\UserRequest;
 use Illuminate\Http\Request;
 
-class RegistrationController extends Controller
+class UserRequestController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,27 +25,29 @@ class RegistrationController extends Controller
      */
     public function create()
     {
-        return view('signup/create');
+        return view('signup.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\StoreRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $userRequest = UserRequest::create($request->validated());
+
+        return redirect()->route('signup')->with('success', 'User request sent! Kindly check your email account.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\UserRequest $UserRequest
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(UserRequest $UserRequest)
     {
         //
     }
@@ -51,10 +55,10 @@ class RegistrationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\UserRequest $UserRequest
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(UserRequest $UserRequest)
     {
         //
     }
@@ -62,11 +66,11 @@ class RegistrationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\UserRequest $UserRequest
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, UserRequest $UserRequest)
     {
         //
     }
@@ -74,10 +78,10 @@ class RegistrationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\UserRequest $UserRequest
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(UserRequest $UserRequest)
     {
         //
     }

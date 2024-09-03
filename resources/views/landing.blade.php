@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.tailwind')
 
 @section('title')
     Career Profiling and Job Searching Institution
 @endsection
 
 @section('main-content-header')
-<!-- Hero Section -->
+@include('partials.header')
 <section class="bg-gray-100 py-12">
     <div class="container mx-auto text-center">
         <h1 class="text-5xl font-bold mb-4">Unlock Your Career Potential</h1>
