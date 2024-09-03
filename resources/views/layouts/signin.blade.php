@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>{{ config('app.name') }}</title>
-        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
         <link rel="x icon" type="img/png" href="images/CvSU-logo-16x16.webp">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
