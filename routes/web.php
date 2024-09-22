@@ -54,7 +54,7 @@ Route::prefix('user')->group(function () {
             'sort1' => 'BSIT',
             'dateexpiry' => '2024-06-22'
         ];
-        return view('profile.index', compact('patronData'));
+        return view('profile.index2', compact('patronData'));
     })->name('user.profile.index');
 });
 
