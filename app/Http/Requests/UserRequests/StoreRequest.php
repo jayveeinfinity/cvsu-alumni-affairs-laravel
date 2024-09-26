@@ -25,7 +25,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'email' => 'required|email|unique:user_requests,email|unique:users,email',
-            'student_number' => 'required|string|size:9',
+            'student_number' => 'required|string|size:9|exists:alumni_directory,student_number',
             'name' => 'required|string|max:255',
             'course' => 'required|string|max:255',
             'year_graduated' => 'required|digits:4'
@@ -45,6 +45,7 @@ class StoreRequest extends FormRequest
             'email.unique' => 'This email address has already been taken.',
             'student_number.required' => 'The student number field is required.',
             'student_number.size' => 'The student number must be exactly 9 characters.',
+            'student_number.exists' => 'Your details not exists on the masterlist of graduated.',
             'name.required' => 'The name field is required.',
             'course.required' => 'The course field is required.',
             'year_graduated.required' => 'The year graduated field is required.',
