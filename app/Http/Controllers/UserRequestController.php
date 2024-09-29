@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequests\StoreRequest;
+use App\Models\User;
 use App\Models\UserRequest;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequests\StoreRequest;
 
 class UserRequestController extends Controller
 {
@@ -37,6 +38,12 @@ class UserRequestController extends Controller
     public function store(StoreRequest $request)
     {
         $userRequest = UserRequest::create($request->validated());
+
+        $user = User::create([
+            'name' => $request->validated()['name'],
+            'email' => $request->validated()['email'],
+            'password' => bcrypt('password')
+        ]);
 
         return redirect()->route('signup')->with('success', 'User request sent! Kindly check your email account.');
     }

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\MailController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserRequestController;
 use App\Models\UserRequest;
 
@@ -30,33 +30,14 @@ Route::get('/signout', [AuthController::class, 'logout'])->name('signout');
 Route::get('/signup', [UserRequestController::class, 'create'])->name('signup');
 Route::post('/signup', [UserRequestController::class, 'store'])->name('userquest.store');
 
-Route::get('/approved/test', function() {
-    return view('mails.user_requests.welcome');
-});
+// Route::get('/approved/test', function() {
+//     return view('mails.user_requests.welcome');
+// });
 
-Route::get('/approved', function() {
-    $mailController = new MailController();
-    $mailController->sendWelcomeEmail('jayveeinfinity@gmail.com', 'John Vincent Bonza');
-});
-
-Route::prefix('user')->group(function () {
-    Route::get('/', function() {
-        return redirect()->route('user.profile.index');
-    });
-    Route::get('/profile', function () {
-        $patronData = [
-            'sex' => 'male',
-            'address' => 'Indang, Cavite',
-            'phone' => '0995 912 1524',
-            'cardnumber' => '201414600',
-            'categorycode' => 'Admin',
-            'sort2' => 'CEIT',
-            'sort1' => 'BSIT',
-            'dateexpiry' => '2024-06-22'
-        ];
-        return view('profile.index2', compact('patronData'));
-    })->name('user.profile.index');
-});
+// Route::get('/approved', function() {
+//     $mailController = new MailController();
+//     $mailController->sendWelcomeEmail('jayveeinfinity@gmail.com', 'John Vincent Bonza');
+// });
 
 /*
 |--------------------------------------------------------------------------
@@ -92,11 +73,10 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     */
     Route::prefix('user')->group(function () {
-        // Route::get('/', function() {
-        //     return redirect()->route('user.profile.index');
-        // });
-        // Route::get('/profile', function () {
-        //     return view('profile.index');
-        // })->name('user.profile.index');
+        Route::get('/', function() {
+            return redirect()->route('user.profile.index');
+        });
+        Route::get('/profile', [ProfileController::class, 'index'])->name('user.profile.index');
+        Route::get('/edit/{user_id}', [ProfileController::class, 'edit'])->name('user.profile.edit');
     });
 });
