@@ -1,10 +1,10 @@
 <?php
 
+use App\Models\UserRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SignUpController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserRequestController;
-use App\Models\UserRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +27,8 @@ Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('a
 Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 Route::get('/signout', [AuthController::class, 'logout'])->name('signout');
 
-Route::get('/signup', [UserRequestController::class, 'create'])->name('signup');
-Route::post('/signup', [UserRequestController::class, 'store'])->name('userquest.store');
+Route::get('/signup', [SignUpController::class, 'create'])->name('signup.create');
+Route::post('/signup', [SignUpController::class, 'store'])->name('signup.store');
 
 // Route::get('/approved/test', function() {
 //     return view('mails.user_requests.welcome');

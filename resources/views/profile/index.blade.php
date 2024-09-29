@@ -10,24 +10,24 @@
                         <div class="rts__job__card__big bg-transparent p-0 position-relative z-1 flex-wrap justify-content-between d-flex gap-4 align-items-center">
                             <div class="d-flex gap-4 gap-md-5 align-items-center flex-md-row flex-column mx-auto mx-md-0">
                                 <div class="author__icon rounded-2">
-                                    <img class="" src="/storage/images/avatars/default.png" alt="">
+                                    <img src="/storage/images/avatars/default.png" alt="">
                                 </div>
                                 <div class="job__meta w-100 d-flex text-center text-md-start flex-column gap-2">
-                                    <div class="">
-                                        <h3 class="job__title h3 mb-0">{{ $user->name }} </h3>
+                                    <div>
+                                        <h3 class="job__title h3 mb-0">{{ $user->profile->first_name }} {{ $user->profile->last_name }} </h3>
                                     </div>
                                     <div class="d-flex gap-3 justify-content-center justify-content-md-start flex-wrap mb-3 mt-2">
                                         <!-- <div class="d-flex gap-2 align-items-center">
                                             Software Engineer
                                         </div> -->
-                                        @if($profile && $profile->adddress)
+                                        @if($user->profile && $user->profile->adddress)
                                             <div class="d-flex gap-2 align-items-center">
-                                                <i class="fas fa-map-marker-alt"></i> {{ $profile->adddress }}
+                                                <i class="fas fa-map-marker-alt"></i> {{ $user->profile->adddress }}
                                             </div>
                                         @endif
-                                        @if($profile && $profile->phone)
+                                        @if($user->profile && $user->profile->phone)
                                             <div class="d-flex gap-2 align-items-center">
-                                                <i class="fas fa-phone"></i> {{ $profile->phone }}
+                                                <i class="fas fa-phone"></i> {{ $user->profile->phone }}
                                             </div>
                                         @endif
                                         <div class="d-flex gap-2 align-items-center">
@@ -78,63 +78,31 @@
                     <div class="rts__job__details">
                         <div id="description" class="mb-30">
                             <h6 class="fw-semibold mb-20">About me</h6>
-                            @if($profile && $profile->about)
-                                <p>{{ $profile->about }}</p>
+                            @if($user->profile && $user->profile->about)
+                                <p>{{ $user->profile->about }}</p>
                             @else
                                 <em>No about me yet.</em>
                             @endif
                         </div>
                         <div id="responsibility" class="mb-30">
                             <h6 class="fw-semibold mb-20">Education</h6>
-                            <ul class="timeline">
-                                    <li>
-                                        <span class="timeline__title d-block">California Institute of Technology</span>
-                                        <span class="timeline__subtitle d-block">Master of Science in Computer Science   (2014- 2015)</span>
-                                        <p class="mt-2 fw-medium">CareerBuilder offers a complete career portal, helping job seekers find better career opportunities and bridge skill gaps through a partnership with Capella Learning Solutions.</p>
-                                    </li>
-                                    <li>
-                                        <span class="timeline__title d-block">University of California, Berkeley</span>
-                                        <span class="timeline__subtitle d-block">B. Sc. in Computer Science and Engineering   (2010- 2014)</span>
-                                        <p class="mt-2 fw-medium">CareerBuilder offers a complete career portal, helping job seekers find better career opportunities and bridge skill gaps through a partnership with Capella Learning Solutions.</p>
-                                    </li>
-                                    <li>
-                                        <span class="timeline__title d-block">University of California, Berkeley</span>
-                                        <span class="timeline__subtitle d-block">B. Sc. in Computer Science and Engineering   (2010- 2014)</span>
-                                        <p class="mt-2 fw-medium">CareerBuilder offers a complete career portal, helping job seekers find better career opportunities and bridge skill gaps through a partnership with Capella Learning Solutions.</p>
-                                    </li>
-                                </ul>
-                            <!-- @if($profile && $profile->educations) -->
+                            @if($user->profile && $user->profile->educations)
                                 <ul class="timeline">
+                                    @foreach($user->profile->educations as $education)
                                     <li>
-                                        <span class="timeline__title d-block">California Institute of Technology</span>
-                                        <span class="timeline__subtitle d-block">Master of Science in Computer Science   (2014- 2015)</span>
-                                        <p class="mt-2 fw-medium">CareerBuilder offers a complete career portal, helping job seekers find better career opportunities and bridge skill gaps through a partnership with Capella Learning Solutions.</p>
+                                        <span class="timeline__title d-block">{{ $education->institution }}</span>
+                                        <span class="timeline__subtitle d-block">Bachelor of Science In Information Technology ({{ $education->graduation_year }})</span>
+                                        <!-- <p class="mt-2 fw-medium">CareerBuilder offers a complete career portal, helping job seekers find better career opportunities and bridge skill gaps through a partnership with Capella Learning Solutions.</p> -->
                                     </li>
-                                    <li>
-                                        <span class="timeline__title d-block">University of California, Berkeley</span>
-                                        <span class="timeline__subtitle d-block">B. Sc. in Computer Science and Engineering   (2010- 2014)</span>
-                                        <p class="mt-2 fw-medium">CareerBuilder offers a complete career portal, helping job seekers find better career opportunities and bridge skill gaps through a partnership with Capella Learning Solutions.</p>
-                                    </li>
-                                    <li>
-                                        <span class="timeline__title d-block">University of California, Berkeley</span>
-                                        <span class="timeline__subtitle d-block">B. Sc. in Computer Science and Engineering   (2010- 2014)</span>
-                                        <p class="mt-2 fw-medium">CareerBuilder offers a complete career portal, helping job seekers find better career opportunities and bridge skill gaps through a partnership with Capella Learning Solutions.</p>
-                                    </li>
+                                    @endforeach
                                 </ul>
-                            <!-- @else -->
+                            @else
                                 <p>No education yet.</p>
-                            <!-- @endif -->
+                            @endif
                         </div>
                         <div id="experience" class="mb-30">
                             <h6 class="fw-semibold mb-20 text-capitalize">Work Experience</h6>
-                            <ul class="timeline">
-                                    <li>
-                                        <span class="timeline__title d-block">Software Engineer</span>
-                                        <span class="timeline__subtitle d-block">Reactheme   (2016- Present)</span>
-                                        <p class="mt-2 fw-medium">Software engineers apply engineering principles and knowledge of programming languages to build software solutions for end users.</p>
-                                    </li>
-                                </ul>
-                            <!-- @if($profile && $profile->work_experience) -->
+                            @if($user->profile && $user->profile->work_experience)
                                 <ul class="timeline">
                                     <li>
                                         <span class="timeline__title d-block">Software Engineer</span>
@@ -142,9 +110,9 @@
                                         <p class="mt-2 fw-medium">Software engineers apply engineering principles and knowledge of programming languages to build software solutions for end users.</p>
                                     </li>
                                 </ul>
-                            <!-- @else -->
+                            @else
                                 <p>No work experience yet.</p>
-                            <!-- @endif -->
+                            @endif
                         </div>  
                     </div>
                     <div id="skill" class="mb-30">

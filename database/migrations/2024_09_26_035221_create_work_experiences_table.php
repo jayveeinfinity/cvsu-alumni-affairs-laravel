@@ -21,7 +21,6 @@ class CreateWorkExperiencesTable extends Migration
             $table->date('issued_date')->nullable();
             $table->timestamps();
 
-            // Foreign key constraint
             $table->foreign('user_profile_id')->references('id')->on('user_profiles')->onDelete('cascade');
         });
     }

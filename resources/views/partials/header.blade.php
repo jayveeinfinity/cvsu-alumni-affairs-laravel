@@ -125,10 +125,10 @@
                         <div class="header__right__btn d-flex gap-3">
                             @guest
                                 <a href="{{ route('signin') }}" class="small__btn d-none d-sm-flex no__fill__btn border-6 font-xs" aria-label="Login Button"> <i class="fas fa-sign-in-alt"></i>Sign In</a>
-                                <a href="{{ route('signup') }}" class="small__btn d-none d-sm-flex d-xl-flex fill__btn border-6 font-xs" aria-label="Job Posting Button">Create an account</a>
+                                <a href="{{ route('signup.create') }}" class="small__btn d-none d-sm-flex d-xl-flex fill__btn border-6 font-xs" aria-label="Job Posting Button">Create an account</a>
                             @endguest
                             @auth
-                                <a href="{{ route('user.profile.index') }}" class="small__btn d-none d-sm-flex d-xl-flex fill__btn border-6 font-xs" aria-label="Job Posting Button">Hi, {{ auth()->user()->name }}</a>
+                                <a href="{{ route('user.profile.index') }}" class="small__btn d-none d-sm-flex d-xl-flex fill__btn border-6 font-xs" aria-label="Job Posting Button">Hi, {{ auth()->user()->profile->first_name }}</a>
                                 <a href="{{ route('signout') }}" class="small__btn d-none d-sm-flex no__fill__btn border-6 font-xs" aria-label="Login Button"> <i class="fas fa-sign-in-alt"></i>Sign Out</a>
                             @endauth
                             <button class="d-md-block d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas"><i class="fa-sharp fa-regular fa-bars"></i></button>
