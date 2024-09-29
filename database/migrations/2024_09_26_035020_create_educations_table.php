@@ -26,7 +26,6 @@ class CreateEducationsTable extends Migration
             $table->string('licensure_title')->nullable();
             $table->timestamps();
 
-            // Foreign key constraint
             $table->foreign('user_profile_id')->references('id')->on('user_profiles')->onDelete('cascade');
         });
     }

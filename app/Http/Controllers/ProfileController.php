@@ -9,16 +9,15 @@ class ProfileController extends Controller
 {
     public function index() {
         $user = auth()->user();
-        $profile = UserProfile::where('user_id', $user->id)->first();
 
-        return view('profile.index', compact('user', 'profile'));
+        return view('profile.index', compact('user'));
     }
 
     public function edit($user_id) {
         $user = auth()->user();
         $profile = UserProfile::where('user_id', $user->id)->first();
 
-        return view('profile.edit', compact('user', 'profile'));
+        return view('profile.edit', compact('user'));
     }
 
     public function update(Request $request) {

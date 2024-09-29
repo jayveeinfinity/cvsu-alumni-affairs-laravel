@@ -7,7 +7,7 @@
 @section('main-content') 
 <div class="h-full flex justify-center">
     <div class="h-screen flex lg:flex flex-row w-full h-screen">
-        <div class="flex bg-cover bg-center h-full lg:w-1/2 flex flex-col bg-cover bg-center h-full" style="background-image: url('images/landing/CvSU.jpg');">
+        <div class="flex bg-cover bg-center h-full lg:w-1/2 flex flex-col bg-cover bg-center h-full w-full" style="background-image: url('images/landing/CvSU.jpg');">
             <div class="flex items-center justify-center h-screen">
                 <div class="items-center pb-28 lg:pb-2 flex flex-col items-center sm:flex flex-col items-center">
                     <img class="w-24 lg:w-80 mb-3" src="images/CvSU-logo.png" alt="cvsu logo">

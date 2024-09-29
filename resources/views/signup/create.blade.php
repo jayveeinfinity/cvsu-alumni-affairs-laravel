@@ -26,7 +26,7 @@
                             {{ Session::get('success') }}
                         </div>
                     @endif
-                    <form action="{{ route('userquest.store') }}" method="POST">
+                    <form action="{{ route('signup.store') }}" method="POST">
                         @csrf
                         <div class="my__profile__tab radius-16 bg-white">
                             <!-- <nav>
@@ -60,11 +60,16 @@
                                         </div>
                                     </div>
                                     <div class="row row-cols-sm-2 row-cols-1 g-3">
-                                        <div class="row row-cols-sm-2 row-cols-1 g-2">
-                                            <div class="rt-input-group">
-                                                <label for="name">Name</label>
-                                            <input type="text" name="name" placeholder="Type name..." required value="{{ old('name') }}">
-                                            </div>
+                                        <div class="rt-input-group">
+                                            <label for="first_name">First name</label>
+                                            <input type="text" name="first_name" placeholder="Type first name..." required value="{{ old('first_name') }}">
+                                        </div>
+                                        <div class="rt-input-group">
+                                            <label for="last_name">Last name</label>
+                                            <input type="text" name="last_name" placeholder="Type last name..." required value="{{ old('last_name') }}">
+                                        </div>
+                                    </div>
+                                    <div class="row row-cols-sm-2 row-cols-1 g-3">
                                             <div class="rt-input-group">
                                                 <label for="year_graduated">Year graduated</label>
                                                 <select name="year_graduated" name="year_graduated" class="form-select">
@@ -76,16 +81,15 @@
                                                     @endfor
                                                 </select>
                                             </div>
+                                            <div class="rt-input-group">
+                                                <label for="course">Course</label>
+                                                <select name="course" name="course" class="form-select">
+                                                    <option value="" selected disabled>Choose course...</option>
+                                                    <option value="BSCS">BSCS</option>
+                                                    <option value="BSIT">BSIT</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="rt-input-group">
-                                            <label for="course">Course</label>
-                                            <select name="course" name="course" class="form-select">
-                                                <option value="" selected disabled>Choose course...</option>
-                                                <option value="BSCS">BSCS</option>
-                                                <option value="BSIT">BSIT</option>
-                                            </select>
-                                        </div>
-                                    </div>
                                     <div class="row row-cols-sm-2 row-cols-1 g-3 flex-row-reverse">
                                         <button type="submit" class="rts__btn fill__btn mx-1">Create an account</button>
                                     </div>
