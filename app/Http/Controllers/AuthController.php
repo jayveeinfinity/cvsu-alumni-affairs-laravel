@@ -48,16 +48,11 @@ class AuthController extends Controller
 
             $user = User::where('email', $googleUserInfo->email)->first();
             if(!$user) {
-                $userRequest = UserRequest::where('email', $googleUserInfo->email)->first();
-                if(!$userRequest) {
                     return redirect()->route('signin')->with('message', 'Account not registered sent! To register, click "Create an account" below.');
-                } else {
-                    return redirect()->route('signin')->with('message', 'Account is pending! Kindly wait and check your email account to complete the registration process.');
-                }
             }
             
             Auth::login($user);
-            return redirect()->intended('/user/profile');
+            return redirect()->intended('/user/profile')->with('message', 'Successfully signed in.');
       
         } catch (Exception $e) {
             dd($e->getMessage());
