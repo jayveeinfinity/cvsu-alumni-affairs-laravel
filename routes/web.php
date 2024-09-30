@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\UserRequest;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SignUpController;
@@ -61,9 +61,9 @@ Route::middleware('auth')->group(function () {
             $date_type = 'All';
             $status = 'Confirmed';
 
-            $userRequests = UserRequest::all();
+            $users = User::all();
 
-            return view('admin.alumni-directory.index', compact('date_type', 'status', 'userRequests'));
+            return view('admin.alumni-directory.index', compact('date_type', 'status', 'users'));
         })->name('admin.alumni-directory');
     });
 
