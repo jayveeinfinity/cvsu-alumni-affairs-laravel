@@ -20,6 +20,12 @@
     <link rel="stylesheet" href="{{asset('plugins/chart.js/Chart.css')}}">
     <!-- Bootstrap Iconpicker CSS-->
     <link rel="stylesheet" href="{{asset('plugins/fontawesome-iconpicker/css/bootstrap-iconpicker.css')}}"/>
+    <script src="{{ mix('js/app.js') }}"></script>
+    <style>
+      #toast-container > div {
+        opacity: 1 !important;
+      }
+    </style>
   </head>
   <body class="hold-transition sidebar-mini">
     <!-- Preloader -->
@@ -71,5 +77,20 @@
   <script src="{{asset('plugins/chart.js/Chart.js')}}"></script>
   <!-- Bootstrap Iconpicker JS -->
   <script src="{{asset('plugins/fontawesome-iconpicker/js/bootstrap-iconpicker.bundle.min.js')}}"></script>
+  <script>
+    toastr.options = {
+      "closeButton": true,
+      "progressBar": true,
+      "positionClass": "toast-top-right",
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    };
+  </script>
   @yield('script')
 </html>

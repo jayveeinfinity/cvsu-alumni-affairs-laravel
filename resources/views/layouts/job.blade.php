@@ -26,6 +26,8 @@
         <title>
             @yield('title') {{ config('app.name') }}
         </title>
+        <!-- Toastr CSS -->
+        <link href="{{ asset('node_modules/toastr/build/toastr.min.css') }}" rel="stylesheet">
         <!-- Font Awesome Icons -->
         <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
         <!-- all plugin css -->
@@ -90,4 +92,27 @@
     <script src="/js/plugins.min.js"></script>
     <script src="/js/main.js"></script>
     </body>
+    
+    <!-- jQuery -->
+    <script src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
+    
+    <!-- Toastr JS -->
+    <script src="{{ asset('node_modules/toastr/build/toastr.min.js') }}"></script>
+
+    <script>
+    // Customize Toastr options
+    toastr.options = {
+        "closeButton": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right", // Position of the toast
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",  // Auto hide after 5 seconds
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+    </script>
 </html>

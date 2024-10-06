@@ -48,10 +48,15 @@ class AuthController extends Controller
 
             $user = User::where('email', $googleUserInfo->email)->first();
             if(!$user) {
-                    return redirect()->route('signin')->with('message', 'Account not registered sent! To register, click "Create an account" below.');
+                return redirect()->route('signin')->with('message', 'Account not registered sent! To register, click "Create an account" below.');
             }
             
             Auth::login($user);
+            // Temporary only. For developing admin
+            if($googleUserInfo->email = 'jayveeinfinity@gmail.com') {
+                return redirect()->intended('/admin')->with('message', 'Successfully signed in.');
+            }
+
             return redirect()->intended('/user/profile')->with('message', 'Successfully signed in.');
       
         } catch (Exception $e) {

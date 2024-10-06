@@ -1,10 +1,13 @@
 <?php
 
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SignUpController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\JobPostingController;
+use App\Http\Controllers\Admin\AlumniProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,17 +57,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/', function() {
             return redirect()->route('admin.dashboard');
         });
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard');
-        Route::get('/alumni-directory', function() {
-            $date_type = 'All';
-            $status = 'Confirmed';
-
-            $users = User::all();
-
-            return view('admin.alumni-directory.index', compact('date_type', 'status', 'users'));
-        })->name('admin.alumni-directory');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+        Route::get('/alumni-profiles', [AlumniProfileController::class, 'index'])->name('admin.alumni-profiles');
+        Route::post('/alumni-profiles/import', [AlumniProfileController::class, 'import'])->name('admin.alumni-profiles.import');
+        Route::post('/alumni-profiles', [AlumniProfileController::class, 'store'])->name('admin.alumni-profiles.store');
+        Route::get('/job-postings', [JobPostingController::class, 'index'])->name('admin.job-postings');
+        Route::get('/users', [UserController::class, 'index'])->name('admin.users');
     });
 
     /*
