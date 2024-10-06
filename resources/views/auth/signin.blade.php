@@ -12,8 +12,8 @@
                 <div class="items-center pb-28 lg:pb-2 flex flex-col items-center sm:flex flex-col items-center">
                     <img class="w-24 lg:w-80 mb-3" src="images/CvSU-logo.png" alt="cvsu logo">
                     <div class=" align-text-top text-center lg:text-center text-white mb-2">
-                        <p class="font-bold text-lg md:text-2xl lg:text-2xl"><b class="uppercase">Cavite State University</b> <br> Office of Alumni Affairs</p>
-                        <p class="text-white font-semibold text-lg pb-16">System</p>
+                        <p class="font-bold text-lg md:text-2xl lg:text-2xl"><b class="uppercase">Cavite State University</b> <br> Office of Alumni Affairs - CEIT</p>
+                        <p class="text-white font-semibold text-lg pb-16">Online Tracer System</p>
                     </div>
                     <!--form-->
                     <div class="p-8 py-5 px-px bg-white text-center rounded-2xl shadow-inner border border-gray-2 lg:hidden">

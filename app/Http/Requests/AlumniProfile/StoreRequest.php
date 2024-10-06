@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\SignUp;
+namespace App\Http\Requests\AlumniProfile;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -25,19 +25,11 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|unique:users,email',
-            'student_number' => 'required|digits:9|' . 
-                Rule::exists('alumni_profiles')->where(function ($query) {
-                    $query->where('student_number', $this->input('student_number'))
-                        ->where('first_name', $this->input('first_name'))
-                        ->where('last_name', $this->input('last_name'))
-                        ->where('course', $this->input('course'))
-                        ->where('year_graduted', $this->input('year_graduated'));
-                }),
+            'student_number' => 'required|digits:9|unique:alumni_profiles,student_number',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'course' => 'required|string|max:255',
-            'year_graduated' => 'required|digits:4'
+            'year_graduated' => 'required|digits:4|integer|min:1900'
         ];
     }
     
@@ -49,12 +41,9 @@ class StoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.required' => 'The email field is required.',
-            'email.email' => 'Please provide a valid email address.',
-            'email.unique' => 'This email address has already been taken.',
             'student_number.required' => 'The student number field is required.',
             'student_number.digits' => 'The student number must be exactly 9 characters.',
-            'student_number.exists' => 'Your details not exists on the masterlist of graduates.',
+            'student_number.exists' => 'Alumni already exists on the masterlist.',
             'first_name.required' => 'The first name field is required.',
             'last_name.required' => 'The last name field is required.',
             'course.required' => 'The course field is required.',

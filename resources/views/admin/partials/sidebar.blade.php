@@ -51,15 +51,23 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.alumni-directory') }}" class="nav-link" data-state="alumni-directory">
+            <a href="{{ route('admin.alumni-profiles') }}" class="nav-link" data-state="alumni-profiles">
               <i class="nav-icon fas fa-users"></i>
               <p>
-                Alumni Directory
+                Alumni Profiles
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.alumni-directory') }}" class="nav-link" data-state="users">
+            <a href="{{ route('admin.job-postings') }}" class="nav-link" data-state="job-postings">
+              <i class="nav-icon fas fa-briefcase"></i>
+              <p>
+                Job Postings
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.users') }}" class="nav-link" data-state="users">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Users
@@ -67,7 +75,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.alumni-directory') }}" class="nav-link" data-state="reports">
+            <a href="{{ route('admin.alumni-profiles') }}" class="nav-link" data-state="reports">
               <i class="nav-icon fas fa-chart-bar"></i>
               <p>
                 Reports

@@ -17,6 +17,8 @@
         "tailwindcss": "^3.4.10"
     },
     "dependencies": {
-        "glob": "^10.3.10"
+        "glob": "^10.3.10",
+        "jquery": "^3.7.1",
+        "toastr": "^2.1.4"
     }
 }
