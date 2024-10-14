@@ -540,6 +540,9 @@ video {
 .collapse {
   visibility: collapse;
 }
+.static {
+  position: static;
+}
 .fixed {
   position: fixed;
 }
@@ -835,10 +838,6 @@ video {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
 }
-.px-2 {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
@@ -890,8 +889,8 @@ video {
 .pb-60 {
   padding-bottom: 15rem;
 }
-.pt-0 {
-  padding-top: 0px;
+.pl-0 {
+  padding-left: 0px;
 }
 .pt-3 {
   padding-top: 0.75rem;
@@ -904,6 +903,9 @@ video {
 }
 .text-center {
   text-align: center;
+}
+.text-right {
+  text-align: right;
 }
 .text-start {
   text-align: start;
@@ -1010,30 +1012,232 @@ video {
 .duration-150 {
   transition-duration: 150ms;
 }
+
+table.dataTable {
+    clear: both;
+    margin-top: 6px !important;
+    margin-bottom: 6px !important;
+    max-width: none !important;
+    border-collapse: separate !important;
+    border-spacing: 0
+}
+
+table.dataTable td,table.dataTable th {
+    box-sizing: content-box
+}
+
+table.dataTable td.dataTables_empty,table.dataTable th.dataTables_empty {
+    text-align: center
+}
+
+table.dataTable.nowrap th,table.dataTable.nowrap td {
+    white-space: nowrap
+}
+
+div.dataTables_wrapper div.dataTables_length label {
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap
+}
+
+div.dataTables_wrapper div.dataTables_length select {
+    width: auto;
+    display: inline-block
+}
+
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: right
+}
+
+div.dataTables_wrapper div.dataTables_filter label {
+    font-weight: normal;
+    white-space: nowrap;
+    text-align: left
+}
+
+div.dataTables_wrapper div.dataTables_filter input {
+    margin-left: .5em;
+    display: inline-block;
+    width: auto
+}
+
+div.dataTables_wrapper div.dataTables_info {
+    padding-top: .85em
+}
+
+div.dataTables_wrapper div.dataTables_paginate {
+    margin: 0;
+    white-space: nowrap;
+    text-align: right
+}
+
+div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+    margin: 2px 0;
+    white-space: nowrap;
+    justify-content: flex-end
+}
+
+div.dataTables_wrapper div.dataTables_processing {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    margin-left: -100px;
+    margin-top: -26px;
+    text-align: center;
+    padding: 1em 0
+}
+
+table.dataTable>thead>tr>th:active,table.dataTable>thead>tr>td:active {
+    outline: none
+}
+
+table.dataTable>thead>tr>th:not(.sorting_disabled),table.dataTable>thead>tr>td:not(.sorting_disabled) {
+    padding-right: 30px
+}
+
+table.dataTable>thead .sorting,table.dataTable>thead .sorting_asc,table.dataTable>thead .sorting_desc,table.dataTable>thead .sorting_asc_disabled,table.dataTable>thead .sorting_desc_disabled {
+    cursor: pointer;
+    position: relative
+}
+
+table.dataTable>thead .sorting:before,table.dataTable>thead .sorting:after,table.dataTable>thead .sorting_asc:before,table.dataTable>thead .sorting_asc:after,table.dataTable>thead .sorting_desc:before,table.dataTable>thead .sorting_desc:after,table.dataTable>thead .sorting_asc_disabled:before,table.dataTable>thead .sorting_asc_disabled:after,table.dataTable>thead .sorting_desc_disabled:before,table.dataTable>thead .sorting_desc_disabled:after {
+    position: absolute;
+    bottom: .9em;
+    display: block;
+    opacity: .3
+}
+
+table.dataTable>thead .sorting:before,table.dataTable>thead .sorting_asc:before,table.dataTable>thead .sorting_desc:before,table.dataTable>thead .sorting_asc_disabled:before,table.dataTable>thead .sorting_desc_disabled:before {
+    right: 1em;
+    content: "↑"
+}
+
+table.dataTable>thead .sorting:after,table.dataTable>thead .sorting_asc:after,table.dataTable>thead .sorting_desc:after,table.dataTable>thead .sorting_asc_disabled:after,table.dataTable>thead .sorting_desc_disabled:after {
+    right: .5em;
+    content: "↓"
+}
+
+table.dataTable>thead .sorting_asc:before,table.dataTable>thead .sorting_desc:after {
+    opacity: 1
+}
+
+table.dataTable>thead .sorting_asc_disabled:before,table.dataTable>thead .sorting_desc_disabled:after {
+    opacity: 0
+}
+
+div.dataTables_scrollHead table.dataTable {
+    margin-bottom: 0 !important
+}
+
+div.dataTables_scrollBody table {
+    border-top: none;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important
+}
+
+div.dataTables_scrollBody table thead .sorting:before,div.dataTables_scrollBody table thead .sorting_asc:before,div.dataTables_scrollBody table thead .sorting_desc:before,div.dataTables_scrollBody table thead .sorting:after,div.dataTables_scrollBody table thead .sorting_asc:after,div.dataTables_scrollBody table thead .sorting_desc:after {
+    display: none
+}
+
+div.dataTables_scrollBody table tbody tr:first-child th,div.dataTables_scrollBody table tbody tr:first-child td {
+    border-top: none
+}
+
+div.dataTables_scrollFoot>.dataTables_scrollFootInner {
+    box-sizing: content-box
+}
+
+div.dataTables_scrollFoot>.dataTables_scrollFootInner>table {
+    margin-top: 0 !important;
+    border-top: none
+}
+
+@media screen and (max-width: 767px) {
+    div.dataTables_wrapper div.dataTables_length,div.dataTables_wrapper div.dataTables_filter,div.dataTables_wrapper div.dataTables_info,div.dataTables_wrapper div.dataTables_paginate {
+        text-align:center
+    }
+
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+        justify-content: center !important
+    }
+}
+
+table.dataTable.table-sm>thead>tr>th:not(.sorting_disabled) {
+    padding-right: 20px
+}
+
+table.dataTable.table-sm .sorting:before,table.dataTable.table-sm .sorting_asc:before,table.dataTable.table-sm .sorting_desc:before {
+    top: 5px;
+    right: .85em
+}
+
+table.dataTable.table-sm .sorting:after,table.dataTable.table-sm .sorting_asc:after,table.dataTable.table-sm .sorting_desc:after {
+    top: 5px
+}
+
+table.table-bordered.dataTable {
+    border-right-width: 0
+}
+
+table.table-bordered.dataTable th,table.table-bordered.dataTable td {
+    border-left-width: 0
+}
+
+table.table-bordered.dataTable th:last-child,table.table-bordered.dataTable th:last-child,table.table-bordered.dataTable td:last-child,table.table-bordered.dataTable td:last-child {
+    border-right-width: 1px
+}
+
+table.table-bordered.dataTable tbody th,table.table-bordered.dataTable tbody td {
+    border-bottom-width: 0
+}
+
+div.dataTables_scrollHead table.table-bordered {
+    border-bottom-width: 0
+}
+
+div.table-responsive>div.dataTables_wrapper>div.row {
+    margin: 0
+}
+
+div.table-responsive>div.dataTables_wrapper>div.row>div[class^=col-]:first-child {
+    padding-left: 0
+}
+
+div.table-responsive>div.dataTables_wrapper>div.row>div[class^=col-]:last-child {
+    padding-right: 0
+}
+
 .hover\:border-slate-400:hover {
   --tw-border-opacity: 1;
   border-color: rgb(148 163 184 / var(--tw-border-opacity));
 }
+
 .hover\:bg-blue-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
 }
+
 .hover\:text-blue-500:hover {
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity));
 }
+
 .hover\:text-slate-900:hover {
   --tw-text-opacity: 1;
   color: rgb(15 23 42 / var(--tw-text-opacity));
 }
+
 .hover\:underline-offset-4:hover {
   text-underline-offset: 4px;
 }
+
 .hover\:shadow:hover {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+
 @media (min-width: 640px) {
 
   .sm\:ml-10 {
@@ -1044,6 +1248,7 @@ video {
     display: flex;
   }
 }
+
 @media (min-width: 768px) {
 
   .md\:ml-20 {
@@ -1055,6 +1260,7 @@ video {
     line-height: 2rem;
   }
 }
+
 @media (min-width: 1024px) {
 
   .lg\:absolute {
@@ -1099,3 +1305,4 @@ video {
     line-height: 2rem;
   }
 }
+

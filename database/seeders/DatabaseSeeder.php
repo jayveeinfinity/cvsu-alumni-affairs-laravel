@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(GoogleUserinfoTableSeeder::class);
         $this->call(JobPostingSeeder::class);
+        $this->call(IndustriesTableSeeder::class);
     }
 }

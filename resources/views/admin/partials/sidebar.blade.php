@@ -138,6 +138,15 @@
               </p>
             </a>
           </li>
+          <li class="nav-header">MASTERFILES</li>
+          <li class="nav-item">
+            <a href="{{ route('admin.industries') }}" class="nav-link" data-state="industries">
+              <i class="nav-icon fas fa-industry"></i>
+              <p>
+                Industries
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
