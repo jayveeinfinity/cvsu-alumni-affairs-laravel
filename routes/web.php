@@ -6,6 +6,7 @@ use App\Http\Controllers\SignUpController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\IndustryController;
 use App\Http\Controllers\Admin\JobPostingController;
 use App\Http\Controllers\Admin\AlumniProfileController;
 
@@ -63,6 +64,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/alumni-profiles', [AlumniProfileController::class, 'store'])->name('admin.alumni-profiles.store');
         Route::get('/job-postings', [JobPostingController::class, 'index'])->name('admin.job-postings');
         Route::get('/users', [UserController::class, 'index'])->name('admin.users');
+        Route::get('/industries', [IndustryController::class, 'index'])->name('admin.industries');
+        Route::post('/industries', [IndustryController::class, 'store'])->name('admin.industries.store');
     });
 
     /*
