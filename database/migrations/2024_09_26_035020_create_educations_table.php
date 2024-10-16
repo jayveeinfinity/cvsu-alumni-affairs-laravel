@@ -16,14 +16,11 @@ class CreateEducationsTable extends Migration
         Schema::create('educations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_profile_id');
+            $table->string('level');
             $table->string('institution');
             $table->string('degree');
-            $table->string('major')->nullable();
-            $table->string('specilization')->nullable();
+            $table->year('enrollment_year')->nullable();
             $table->year('graduation_year')->nullable();
-            $table->string('latin_honors')->nullable();
-            $table->boolean('has_licensure')->default(false);
-            $table->string('licensure_title')->nullable();
             $table->timestamps();
 
             $table->foreign('user_profile_id')->references('id')->on('user_profiles')->onDelete('cascade');

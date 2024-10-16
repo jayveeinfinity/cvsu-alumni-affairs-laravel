@@ -25,22 +25,22 @@
                                                 <i class="fas fa-map-marker-alt"></i> {{ $user->profile->adddress }}
                                             </div>
                                         @endif
-                                        @if($user->profile && $user->profile->phone)
-                                            <div class="d-flex gap-2 align-items-center">
-                                                <i class="fas fa-phone"></i> {{ $user->profile->phone }}
-                                            </div>
-                                        @endif
                                         <div class="d-flex gap-2 align-items-center">
                                             <i class="fas fa-envelope"></i> {{ $user->email }}
                                         </div>
+                                        @if($user->profile && $user->profile->phone_number)
+                                            <div class="d-flex gap-2 align-items-center">
+                                                <i class="fas fa-phone"></i> {{ $user->profile->phone_number }}
+                                            </div>
+                                        @endif
                                         <!-- <div class="d-flex gap-2 align-items-center">
                                             <i class="fas fa-briefcase"></i> Full Time
                                         </div> -->
                                     </div>
                                     <div class="job__tags d-flex justify-content-center justify-content-md-start flex-wrap gap-3">
-                                        <a href="#">React</a>
-                                        <a href="#">Nest Js</a>
-                                        <a href="#">C++</a>
+                                        <a href="javascript:void(0)">React</a>
+                                        <a href="javascript:void(0)">Nest Js</a>
+                                        <a href="javascript:void(0)">C++</a>
                                     </div>
                                 </div>
                             </div>
