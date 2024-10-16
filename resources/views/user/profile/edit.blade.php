@@ -25,9 +25,9 @@
                                                 <i class="fas fa-map-marker-alt"></i> {{ $user->profile->adddress }}
                                             </div>
                                         @endif
-                                        @if($user->profile && $user->profile->phone)
+                                        @if($user->profile && $user->profile->phone_number)
                                             <div class="d-flex gap-2 align-items-center">
-                                                <i class="fas fa-phone"></i> {{ $user->profile->phone }}
+                                                <i class="fas fa-phone"></i> {{ $user->profile->phone_number }}
                                             </div>
                                         @endif
                                         <div class="d-flex gap-2 align-items-center">
@@ -93,25 +93,39 @@
                         </div>
                     </div> -->
                     <div class="info__field mt-5">
+                        <div class="alert alert-danger pl-0 d-none" id="addAlumniAlert">
+                            <ul class="mb-0" id="errorList"></ul>
+                        </div>
                         <h6>Personal Details</h6>
                         <div class="row row-cols-sm-2 row-cols-1 g-3">
                             <div class="rt-input-group">
                                 <label for="first_name">First name</label>
-                                <input type="text" name="first_name" placeholder="Type first name..." value="{{ $user->profile->first_name }}" required>
+                                <input type="text" name="first_name" id="first_name" placeholder="Type first name..." value="{{ $user->profile->first_name }}" required>
                             </div>
                             <div class="rt-input-group">
                                 <label for="last_name">Last name</label>
-                                <input type="text" name="last_name" placeholder="Type last name..." value="{{ $user->profile->last_name }}" required>
+                                <input type="text" name="last_name" id="last_name" placeholder="Type last name..." value="{{ $user->profile->last_name }}" required>
                             </div>
                         </div>
                         <div class="row row-cols-1">
                             <div class="rt-input-group">
                                 <label for="about">About</label>
-                                <textarea name="about" placeholder="Tell us about yourself..." required>{{ $user->profile->about }}</textarea>
+                                <textarea name="about" id="about" placeholder="Tell us about yourself..." required>{{ $user->profile->about }}</textarea>
+                            </div>
+                        </div>
+                        <h6>Contact Details</h6>
+                        <div class="row row-cols-sm-2 row-cols-1 g-3">
+                            <div class="rt-input-group">
+                                <label for="phone_number">Phone</label>
+                                <input type="tel" name="phone_number" id="phone_number" placeholder="Type phone number..." value="{{ $user->profile->phone_number }}" required>
+                            </div>
+                            <div class="rt-input-group">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" id="email" placeholder="Type email..." value="{{ $user->email }}" readonly disabled>
                             </div>
                         </div>
                         <div class="row row-cols-sm-2 row-cols-1 g-3 flex-row-reverse">
-                            <button type="submit" class="rts__btn fill__btn mx-1">Save</button>
+                            <button type="submit" class="rts__btn fill__btn mx-1" data-click="saveProfile">Save</button>
                         </div>
 
                         <!-- <div class="row row-cols-sm-2 row-cols-1 g-3">
@@ -195,4 +209,55 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+<script>
+    document.addEventListener("click", (e) => {
+        e = e || window.event;
+        var target = e.target || e.srcElement;
+        switch(target.dataset.click) {
+            case "saveProfile":
+                var formData = new FormData();
+                formData.append('_token', "{{ csrf_token() }}");
+                formData.append('first_name', $('#first_name').val());
+                formData.append('last_name', $('#last_name').val());
+                formData.append('about', $('#about').val());
+                formData.append('phone_number', $('#phone_number').val());
+                $.ajax({
+                    method: "POST",
+                    url: "{{ route('user.profile.update', ['user_id' => auth()->user()->id ]) }}",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: (response) =>  {
+                        toastr.success('Successfully added to alumni profiles!', 'Alumni added');
+                        $('#addAlumniForm').modal('hide');
+                    },
+                    error: (response) => {
+                        $('#errorList').empty();
+
+                        if (response.responseJSON) {
+                            const errors = response.responseJSON.errors;
+                            for (const field in errors) {
+                                if (errors.hasOwnProperty(field)) {
+                                    const errorMessages = errors[field];
+                                    errorMessages.forEach(function(message) {
+                                        const listItem = $('<li></li>').text(`${message}`);
+                                        $('#errorList').append(listItem);
+                                    });
+                                }
+                            }
+
+                            if ($('#addAlumniAlert').hasClass("d-none")) {
+                                $('#addAlumniAlert').removeClass("d-none");
+                            }
+                        } else {
+                            toastr.error('An unexpected error occurred.', 'Something went wrong...');
+                        }
+                    }
+                });
+                break;
+        }
+    });
+</script>
 @endsection

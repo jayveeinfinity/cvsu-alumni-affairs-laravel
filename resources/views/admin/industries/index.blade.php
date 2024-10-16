@@ -75,7 +75,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
-                                    {{!! $links->render() !!}}
+                                    {!! $links->render() !!}
                                 </div>
                             </div>
                         </div>

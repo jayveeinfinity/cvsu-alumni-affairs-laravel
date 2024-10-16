@@ -12,9 +12,9 @@
     <!-- Tailwind CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{asset('dist/css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{asset('css/custom.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
   </head>
   <body style="background-color: #f3f4f6;">
     @include('partials.header')
@@ -27,18 +27,18 @@
   </body>
   <!-- REQUIRED SCRIPTS -->
   <!-- jQuery -->
-  <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
+  <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
   <!-- Bootstrap 4 -->
-  <script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
   <!-- Sweet Alert 2 -->
-  <script src="{{asset('plugins/sweetalert2/sweetalert2.all.min.js')}}"></script>
+  <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
   <!-- AdminLTE App -->
-  <script src="{{asset('dist/js/adminlte.min.js')}}"></script>
+  <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
   <!-- Sweet Alert 2 -->
-  <script src="{{asset('plugins/sweetalert2/sweetalert2.all.min.js')}}"></script>
+  <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
   <!-- Chart JS -->
-  <script src="{{asset('plugins/chart.js/Chart.js')}}"></script>
+  <script src="{{ asset('plugins/chart.js/Chart.js') }}"></script>
   <!-- Bootstrap Iconpicker JS -->
-  <script src="{{asset('plugins/fontawesome-iconpicker/js/bootstrap-iconpicker.bundle.min.js')}}"></script>
+  <script src="{{ asset('plugins/fontawesome-iconpicker/js/bootstrap-iconpicker.bundle.min.js') }}"></script>
   @yield('script')
 </html>
