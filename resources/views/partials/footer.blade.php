@@ -34,7 +34,7 @@
                             <i class="fab fa-facebook"></i>
                         </a>
                         <a target="_blank" href="https://cvsu.edu.ph/alumniaffairs/"  aria-label="cvsu">
-                            <!-- <i class="fab fa-instagram"></i> --> <img src="https://scontent.fmnl13-2.fna.fbcdn.net/v/t39.30808-1/304883224_748825179899827_2176281368331495617_n.jpg?stp=cp0_dst-jpg_s40x40&_nc_cat=111&ccb=1-7&_nc_sid=f4b9fd&_nc_eui2=AeGmpvP9IX-v4qKf2tW6W_MPRH5q1Tvd1mZEfmrVO93WZnNDgsQkpS9pxdFCyOFRa0USi2DuedpnmnfwBQ4iMY13&_nc_ohc=qSEReyj2nHUQ7kNvgF6Ab-f&_nc_ht=scontent.fmnl13-2.fna&oh=00_AYCpLaFVM3cWM4PHPD7W2uTjScIljIGD9DfLoyOQ7pYHtw&oe=66FA7840" style="height: 24px;">
+                            <!-- <i class="fab fa-instagram"></i> --> <img src="/images/CvSU-logo-64x64.webp" style="height: 24px;">
                         </a>
                         <!-- <a target="_blank" href="https://linkedin.com"  aria-label="linkedin">
                             <i class="fab fa-linkedin"></i>

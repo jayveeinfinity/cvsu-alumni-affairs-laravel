@@ -53,7 +53,7 @@ class AuthController extends Controller
             
             Auth::login($user);
             // Temporary only. For developing admin
-            if($googleUserInfo->email = 'jayveeinfinity@gmail.com') {
+            if($googleUserInfo->email == 'jayveeinfinity@gmail.com') {
                 return redirect()->intended('/admin')->with('message', 'Successfully signed in.');
             }
 

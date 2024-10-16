@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SignUpController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\IndustryController;
@@ -77,7 +77,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/', function() {
             return redirect()->route('user.profile.index');
         });
-        Route::get('/profile', [ProfileController::class, 'index'])->name('user.profile.index');
-        Route::get('/edit/{user_id}', [ProfileController::class, 'edit'])->name('user.profile.edit');
+        Route::get('/profile', [UserProfileController::class, 'index'])->name('user.profile.index');
+        Route::get('/edit/{user_id}', [UserProfileController::class, 'edit'])->name('user.profile.edit');
+        Route::post('/edit/{user_id}', [UserProfileController::class, 'update'])->name('user.profile.update');
     });
 });
