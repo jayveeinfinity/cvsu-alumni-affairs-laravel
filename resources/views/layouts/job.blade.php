@@ -19,7 +19,7 @@
         <meta name="twitter:title" content="Your Ultimate Job HTML Template">
         <meta name="twitter:description" content="Your Ultimate Job HTML Template"> -->
         <!-- fabicon -->
-        <link rel="shortcut-icon" href="/images/CvSU-logo-16x16.webp" type="image/x-icon">
+        <link rel="x icon" type="img/png" href="/images/CvSU-logo-16x16.webp">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap" rel="stylesheet">
@@ -32,6 +32,35 @@
         <link rel="stylesheet" href="/css/plugins.min.css">
         <link rel="stylesheet" href="/css/job-style.css">
         <script src="{{ mix('js/app.js') }}"></script>
+        <style>
+            .modal-header {
+                display: -ms-flexbox;
+                display: flex;
+                -ms-flex-align: start;
+                align-items: flex-start;
+                -ms-flex-pack: justify;
+                justify-content: space-between;
+                padding: 1rem;
+                border-bottom: 1px solid #e9ecef;
+                border-top-left-radius: calc(.3rem - 1px);
+                border-top-right-radius: calc(.3rem - 1px);
+            }
+            .modal-title {
+                margin-bottom: 0;
+                line-height: 1.5;
+                font-weight: 500;
+                font-size: 20px !important;
+            }
+            .close {
+                float: right;
+                font-size: 1.5rem;
+                font-weight: 700;
+                line-height: 1;
+                color: #000;
+                text-shadow: 0 1px 0 #fff;
+                opacity: .5;
+            }
+        </style>
     </head>
     <body>
         @include('partials.header')

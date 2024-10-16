@@ -33,7 +33,7 @@
                     <div class="card-header d-flex justify-content-between">
                         <h3 class="w-100 card-title">Alumni Profiles ({{ $alumniProfiles->total() }})</h3>
                         <div class="w-100 d-flex flex-row-reverse" style="gap: 1rem;">
-                            <button class="btn btn-outline-success" data-toggle="modal" data-target="#addAlumniForm" data-backdrop="static" data-keyboard="false" ><i class="fas fa-user-plus"></i> Add alumni</button>
+                            <button class="btn btn-outline-success" data-toggle="modal" data-target="#addAlumniForm" data-backdrop="static" data-keyboard="false"><i class="fas fa-user-plus"></i> Add alumni</button>
                             <button class="btn btn-outline-success" href="javascript:void(0)" data-click="importExcelFile"><i class="fas fa-file-excel" data-click="importExcelFile"></i> Import from excel</button>
                             <span class="btn btn-outline-success" style="display: none;" data-loading="import"><i class="fas fa-compact-disc fa-spin"></i> Importing...</span>
                         </div>
