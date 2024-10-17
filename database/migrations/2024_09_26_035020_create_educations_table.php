@@ -18,9 +18,10 @@ class CreateEducationsTable extends Migration
             $table->unsignedBigInteger('user_profile_id');
             $table->string('level');
             $table->string('institution');
-            $table->string('degree');
-            $table->year('enrollment_year')->nullable();
-            $table->year('graduation_year')->nullable();
+            $table->string('degree')->nullable();
+            $table->year('date_started')->nullable();
+            $table->year('date_ended')->nullable();
+            $table->string('honors')->nullable();
             $table->timestamps();
 
             $table->foreign('user_profile_id')->references('id')->on('user_profiles')->onDelete('cascade');

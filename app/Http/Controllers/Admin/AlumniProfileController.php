@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Models\AlumniProfile;
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\AlumniProfilesImport;
-use Symfony\Component\HttpFoundation\Response;
-use App\Http\Requests\AlumniProfile\ImportRequest;
 use App\Http\Requests\AlumniProfile\StoreRequest;
+use App\Http\Requests\AlumniProfile\ImportRequest;
 
 class AlumniProfileController extends Controller
 {

@@ -1,98 +1,81 @@
 @extends('layouts.job')
 
 @section('main-content')
-<!-- breadcrumb area -->
-<div class="rts__section breadcrumb__background">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 position-relative d-flex justify-content-between align-items-center">
-                <div class="breadcrumb__area max-content breadcrumb__padding">
-                    <div class="rts__job__card__big bg-transparent p-0 position-relative z-1 flex-wrap justify-content-between d-flex gap-4 align-items-center">
-                        <div class="d-flex gap-4 gap-md-5 align-items-center flex-md-row flex-column mx-auto mx-md-0">
-                        <div class="author__icon rounded-2">
-                                <img src="/storage/images/avatars/default.png" alt="">
-                            </div>
-                            <div class="job__meta w-100 d-flex text-center text-md-start flex-column gap-2">
-                                <div>
-                                    <h3 class="job__title h3 mb-0">{{ $user->profile->first_name }} {{ $user->profile->last_name }} </h3>
-                                </div>
-                                <div class="d-flex gap-3 justify-content-center justify-content-md-start flex-wrap mb-3 mt-2">
-                                    <!-- <div class="d-flex gap-2 align-items-center">
-                                        Software Engineer
-                                    </div> -->
-                                    @if($user->profile && $user->profile->adddress)
-                                        <div class="d-flex gap-2 align-items-center">
-                                            <i class="fas fa-map-marker-alt"></i> {{ $user->profile->adddress }}
-                                        </div>
-                                    @endif
-                                    <div class="d-flex gap-2 align-items-center">
-                                        <i class="fas fa-envelope"></i> {{ $user->email }}
-                                    </div>
-                                    @if($user->profile && $user->profile->phone_number)
-                                        <div class="d-flex gap-2 align-items-center">
-                                            <i class="fas fa-phone"></i> {{ $user->profile->phone_number }}
-                                        </div>
-                                    @endif
-                                    <!-- <div class="d-flex gap-2 align-items-center">
-                                        <i class="fas fa-briefcase"></i> Full Time
-                                    </div> -->
-                                </div>
-                                <div class="job__tags d-flex justify-content-center justify-content-md-start flex-wrap gap-3">
-                                    <a href="#">React</a>
-                                    <a href="#">Nest Js</a>
-                                    <a href="#">C++</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="breadcrumb__apply d-flex gap-3 max-content">
-                        <!-- <a href="#" class="rts__btn apply__btn no__fill__btn">Shortlist</a> -->
-                        <!-- <a href="#" class="rts__btn be-1 apply__btn fill__btn">Cv Download</a> -->
-                    </div>             
-                </div>
-                <div class="breadcrumb__area__shape d-flex gap-4 justify-content-end align-items-center">
-                    <div class="shape__one common">
-                    
-                    </div>
-                    <div class="shape__two common">
-                        <img src="assets/img/breadcrumb/shape-2.svg" alt="">
-                    </div>
-                    <div class="shape__three common">
-                        <img src="assets/img/breadcrumb/shape-3.svg" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- breadcrumb area end -->
+<style>
+    .taggable-input {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        border-radius: 6px;
+        border: 1px solid var(--rts-border);
+    }
+    .taggable-input input  {
+        width: 300px !important;
+        flex: 1;
+        padding: 15px 10px !important;
+        border: none !important;
+        outline: none !important;
+    }
+    .section__padding_alt {
+        padding-top: 165px;
+        padding-bottom: 0px;
+    }
+    @media screen and (max-width: 992px) {
+        .section__padding_alt {
+            padding-top: 155px;
+            padding-bottom: 0px;
+        }
+    }
 
+    @media screen and (max-width: 768px) {
+        .section__padding_alt {
+            padding-top: 160px;
+        }
+    }
+    .controls {
+        margin-top: 10px;
+    }
+
+    button {
+        margin-right: 5px;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 <!-- job list one -->
-<div class="rts__section section__padding">
+<div class="rts__section section__padding_alt">
     <div class="container">
         <div class="my__profile__tab p-0 pb-5 radius-16 bg-white">
+            <a href="{{ route('user.profile.index') }}"><i class="fas fa-long-arrow-alt-left"></i> Back to profile</a>
             <h3 class="mb-3">Edit profile</h3>
             <nav>
                 <div class="nav nav-tabs">
-                    <a class="nav-link" href="#info" data-tab="info">Personal Details</a>
+                    <a class="nav-link active" href="#info" data-tab="info">Personal Details</a>
                     <a class="nav-link" href="#education" data-tab="education">Educational Background</a>     
-                    <a class="nav-link active" href="#experience" data-tab="experience">Work Experience</a>                         
+                    <a class="nav-link" href="#experience" data-tab="experience">Work Experience</a>                         
                 </div>
             </nav>
             <div class="tab-content clearfix">
-                <div class="my__details tab-pane" id="info">
-                    <!-- <div class="info__top">
+                <div class="my__details tab-pane active" id="info">
+                    <div class="info__top">
                         <div class="author__image">
-                            <img class="p-4" src="assets/img/icon/google.svg" alt="">
+                            <img src="/storage/images/avatars/default.png" alt="avatar" style="height: 200px; width: 200px;">
                         </div>
                         <div class="select__image">
-                            <label for="file" class="file-upload__label">Upload New Photo</label>
-                            <input type="file" class="file-upload__input" id="file" required="">
+                            <label for="file" class="file-upload__label" id="uploadButton">Upload New Photo</label>
+                            <input type="file" class="file-upload__input" id="inputImage" accept="image/*">
                         </div>
                         <div class="delete__data">
-                            <i class="fa-light fa-trash-can"></i>
+                            <i class="fas fa-trash"></i>
                         </div>
-                    </div> -->
+                        <!-- <div class="controls">
+                            <label for="zoomRange">Zoom:</label>
+                            <input type="range" id="zoomRange" min="0.1" max="3" step="0.1" value="0.1">
+                        </div>
+                        <div class="controls">
+                            <button id="cropImage">Crop Image</button>
+                        </div> -->
+                    </div>
                     <div class="info__field mt-5">
                         <div class="alert alert-danger pl-0 d-none" id="addAlumniAlert">
                             <ul class="mb-0" id="errorList"></ul>
@@ -213,14 +196,56 @@
                             <ul class="mb-0" id="errorList"></ul>
                         </div>
                         <h6>Educational background <button class="btn btn-sm fill__btn border-6 font-xs" data-toggle="modal" data-target="#addEducationForm" data-backdrop="static" data-keyboard="false">Add</button></h6>
-                        @if($user->profile->educations)
+                        <div class="row g-30">
+                        @forelse($user->profile->educations as $education)
+                            <div class="col-lg-12">
+                                <div class="rts__job__card__big style__gradient justify-content-between d-flex gap-4 align-items-center">
+                                    <div class="d-flex flex-wrap flex-md-nowrap flex-lg-wrap flex-xl-nowrap gap-4 align-items-center">
+                                        <div class="company__icon rounded-2">
+                                            <!-- <img src="assets/img/home-1/company/apple.svg" alt=""> -->
+                                            <i class="fas fa-university fa-3x"></i>
+                                        </div>
+                                        <div class="job__meta w-100 d-flex flex-column gap-2">
+                                            <div class="d-flex justify-content-between align-items-center gap-3">
+                                                <span class="job__title h6 mb-0">{{ $education->institution }}</span>
+                                            </div>
+                                            <div class="d-flex gap-3 gap-md-4 flex-wrap mb-2">
+                                                @if($education->degree)
+                                                <div class="d-flex gap-2 align-items-center">
+                                                    <i class="fas fa-graduation-cap"></i> {{ $education->degree }}
+                                                </div>
+                                                @endif
+                                                <!-- <div class="d-flex gap-2 align-items-center">
+                                                    <i class="fa-light rt-briefcase"></i> Full Time
+                                                </div> -->
+                                                <div class="d-flex gap-2 align-items-center">
+                                                    <i class="fas fa-calendar"></i> @if($education->date_started) {{ $education->date_started }} - @endif {{ $education->date_ended ?? 'PRESENT' }}
+                                                </div>
+                                            </div>
+                                            @if($education->honors)
+                                            <div class="job__tags d-flex flex-wrap gap-3">
+                                                @foreach($education->honors as $honor)
+                                                    <a>{{ $honor }}</a>
+                                                @endforeach
+                                            </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="bookmark__btn">
+                                            <i class="fas fa-pencil-alt"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
                             <p>No educational background yet. To add one, click add</p>
-                        @endif
+                        @endforelse
+                        </div>
                     </div>
                 </div>
-                <div class="my__details tab-pane active" id="experience">
+                <div class="my__details tab-pane" id="experience">
                     <div class="info__field mt-5">
-                        <div class="alert alert-danger pl-0 d-none" id="addEducationalBackgroundAlert">
+                        <div class="alert alert-danger pl-0 d-none" id="addWorkExperienceAlert">
                                 <ul class="mb-0" id="errorList"></ul>
                             </div>
                             <h6>Work Experience <button class="btn btn-sm fill__btn border-6 font-xs" data-toggle="modal" data-target="#addEducationForm" data-backdrop="static" data-keyboard="false">Add</button></h6>
@@ -234,7 +259,7 @@
         </div>
     </div>
 </div>
-<!-- Modal -->
+<!-- Education Modal -->
 <div class="modal fade" id="addEducationForm" tabindex="-1" role="dialog" aria-labelledby="addEducationFormTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
@@ -244,45 +269,83 @@
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body py-3 px-4 pb-5">
                 <div class="alert alert-danger pl-0 d-none" id="addAlumniAlert">
                     <ul class="mb-0" id="errorList"></ul>
                 </div>
                 <div class="info__field">
                     <div class="row row-cols-1 g-3">
                         <div class="rt-input-group">
-                            <label for="level">Level</label>
-                            <select name="level" id="level" class="form-select">
+                            <label for="level">Level*</label>
+                            <select name="level" id="level" class="form-select" required>
                                 <option value="" selected disabled>Choose level...</option>
-                                <option value="1">Primary</option>
-                                <option value="2">Secondary</option>
-                                <option value="3">Senior High</option>
-                                <option value="4">College</option>
-                                <option value="5">Graduate studies</option>
+                                <option value="primary">Primary</option>
+                                <option value="secondary">Secondary</option>
+                                <option value="senior_high">Senior High</option>
+                                <option value="college">College</option>
+                                <option value="graduate_studies">Graduate studies</option>
                             </select>
                         </div>
-                        <div class="rt-input-group">
-                            <label for="institution">Institution</label>
+                        <div class="rt-input-group" id="institution_container">
+                            <label for="institution">Institution*</label>
                             <input type="text" name="institution" id="institution" placeholder="Type institution..." required>
                         </div>
-                        <div class="rt-input-group">
-                            <label for="degree">Degree</label>
-                            <input type="text" name="degree" id="degree" placeholder="Type degree..." required>
+                        <div class="rt-input-group d-none" id="degree_container">
+                            <label for="degree">Course/Degree/Strand <span class="d-inline-block mb-0 fst-italic text-lowercase" style="font-size: 14px;">(if applicable)</span></label>
+                            <input type="text" name="degree" id="degree" placeholder="Type degree...">
                         </div>
-                        <div class="rt-input-group">
+                        <div class="rt-input-group d-none" id="major_container">
+                            <label for="major_specilization">Major/Specialization <span class="d-inline-block mb-0 fst-italic text-lowercase" style="font-size: 14px;">(if applicable)</span></label>
+                            <input type="text" name="major_specialization" id="major_specilization" placeholder="Type major/specilization...">
+                        </div>
+                        <div class="rt-input-group d-none" id="period_of_attendance_from_container">
                             <label for="period_of_attendance_from">Period of Attendance (From):</label>
-                            <input type="text" name="period_of_attendance_from" id="period_of_attendance_from" placeholder="Type year..." required>
+                            <input type="text" name="period_of_attendance_from" id="period_of_attendance_from" placeholder="Type year...">
                         </div>
-                        <div class="rt-input-group">
+                        <div class="rt-input-group d-none" id="is_completed_container">
+                            <input type="checkbox" id="is_completed" class="mx-2" style="width: initial;"> Completed
+                        </div>
+                        <div class="rt-input-group d-none" id="period_of_attendance_to_container">
                             <label for="period_of_attendance_to">Period of Attendance (To):</label>
-                            <input type="text" name="period_of_attendance_to" id="period_of_attendance_to" placeholder="Type year..." required>
+                            <input type="text" name="period_of_attendance_to" id="period_of_attendance_to" placeholder="Type year...">
+                        </div>
+                        <div class="rt-input-group d-none" id="honor_awards_container">
+                            <label for="honor_award">Honors/Awards <span class="d-inline-block mb-0 fst-italic text-lowercase" style="font-size: 14px;">(if applicable)</span></label>
+                            <div class="taggable-input" id="taggable-input">
+                                <input type="text" name="honor_award" id="honor_award" placeholder="Type honors/awards..." />
+                                <input type="hidden" id="honors_awards" name="honors_awards" />
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-click="addAlumni">Save changes</button>
+                <button type="button" class="btn btn-primary" data-click="saveEducation">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Avatar Cropper Modal -->
+<div class="modal fade" id="avatarCropperModal" tabindex="-1" role="dialog" aria-labelledby="avatarCropperModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="avatarCropperModalTitle"><i class="fas fa-arrows-alt"></i> Crop image</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body py-3 px-4 pb-5">
+                <div class="info__field">
+                    <div class="row row-cols-1 g-3">
+                        <img src="" id="cropperImage" height="100">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-click="saveEducation">Save changes</button>
             </div>
         </div>
     </div>
@@ -338,10 +401,123 @@
                     }
                 });
                 break;
+            case "saveEducation":
+                var level = $('#level').find(":selected").val();
+
+                if(!level) {
+                    return alert('Please select level!');
+                }
+
+                var formData = new FormData();
+                formData.append('_token', "{{ csrf_token() }}");
+                formData.append('level', level);
+                formData.append('institution', $('#institution').val());
+                formData.append('date_started', $('#period_of_attendance_from').val());
+                formData.append('date_ended', $('#period_of_attendance_to').val());
+                formData.append('honors', $('#honors_awards').val());
+                if(level != 'primary') {
+                    formData.append('degree', $('#degree').val());
+                }
+                $.ajax({
+                    method: "POST",
+                    url: "{{ route('user.profile.education.store') }}",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: (response) =>  {
+                        toastr.success('Successfully added to alumni profiles!', 'Alumni added');
+                        $('#addAlumniForm').modal('hide');
+                    },
+                    error: (response) => {
+                        $('#errorList').empty();
+
+                        if (response.responseJSON) {
+                            const errors = response.responseJSON.errors;
+                            for (const field in errors) {
+                                if (errors.hasOwnProperty(field)) {
+                                    const errorMessages = errors[field];
+                                    errorMessages.forEach(function(message) {
+                                        const listItem = $('<li></li>').text(`${message}`);
+                                        $('#errorList').append(listItem);
+                                    });
+                                }
+                            }
+
+                            if ($('#addAlumniAlert').hasClass("d-none")) {
+                                $('#addAlumniAlert').removeClass("d-none");
+                            }
+                        } else {
+                            toastr.error('An unexpected error occurred.', 'Something went wrong...');
+                        }
+                    }
+                });
+                break;
         }
     });
 
-    document.addEventListener('DOMContentLoaded', function () {
+    var $uploadButton = $('#uploadButton');
+    var $inputImage = $('#inputImage');
+    var $image = $('#cropperImage');
+    var $zoomRange = $('#zoomRange');
+    var $modal = $('#avatarCropperModal');
+
+    $(document).ready(function() {
+        $uploadButton.click(() => $inputImage.click());
+        // =================================================================================================
+        // ===================================== AVATAR UPLOAD =============================================
+        // =================================================================================================
+        $inputImage.on('change', (e) => {
+            var files = event.target.files;
+            if (files && files.length) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    // Set the image source and show modal with options
+                    $image.attr('src', e.target.result);
+
+                    // Show the modal with 'static' backdrop and keyboard disabled
+                    $modal.modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+
+                    $modal.modal('show');
+                    
+                     // Initialize Cropper when modal is shown
+                    $modal.on('shown.bs.modal', function () {
+                    cropper = new Cropper($image[0], {
+                        aspectRatio: 1, // Square aspect ratio
+                        viewMode: 2, // Ensures the image fills the canvas
+                        dragMode: 'move', // Allow moving the image, but not the crop box
+                        autoCropArea: 1, // Crop area fills the canvas by default
+                        cropBoxResizable: false, // Disable resizing of the crop box
+                        movable: true, // Allow moving the image inside the crop box
+                        zoomable: true, // Allow zooming
+                        responsive: true, // Resize canvas with window,
+                        cropBoxResizable: false,
+                        guides: false,
+                        toggleDragModeOnDblclick: false,
+                        minContainerWidth: 250,
+                        minContainerHeight: 250,
+                        minCropBoxWidth: 100,
+                        minCropBoxHeight: 100,
+                        maxCropBoxWidth: 100,
+                        maxCropBoxHeight: 100,
+                        ready: function () {
+                            // Set initial zoom level based on slider value
+                            cropper.zoomTo($zoomRange.val());
+                        }
+                    });
+                });
+
+                // Clean up when modal is hidden
+                $modal.on('hidden.bs.modal', function () {
+                    cropper.destroy(); // Destroy cropper instance when modal is closed
+                });
+            };
+            reader.readAsDataURL(files[0]);
+            }
+        });
+
         const navLinks = document.querySelectorAll('.nav-link');
         const tabPanes = document.querySelectorAll('.tab-pane');
 
@@ -368,6 +544,179 @@
                 activePane.classList.add('active');
             });
         });
+
+        $('#level').on('change', (e) => {
+            let value = $('#level').find(":selected").val();
+
+            $('#period_of_attendance_from_container').addClass('d-none');
+            $('#is_completed_container').addClass('d-none');
+            $('#period_of_attendance_to_container').addClass('d-none');
+
+            switch(value) {
+                // case "primary":
+                // case "secondary":
+                //     $('#period_of_attendance_from_container').removeClass('d-none');
+                //     $('#is_completed_container').removeClass('d-none');
+                //     $('#period_of_attendance_from_container').removeClass('d-none');
+                //     $('#is_completed_container').removeClass('d-none');
+                //     break;
+                case "secondary":
+                    $('#degree_container').removeClass('d-none');
+                    break;
+                case "senior_high":
+                    $('#degree_container').removeClass('d-none');
+                    break;
+                case "college":
+                case "graduate_studies":
+                    $('#degree_container').removeClass('d-none');
+                    $('#major_container').removeClass('d-none');
+                    break;
+            }
+
+            $('#period_of_attendance_from_container').removeClass('d-none');
+            $('#is_completed_container').removeClass('d-none');
+            $('#period_of_attendance_from_container').removeClass('d-none');
+            $('#is_completed_container').removeClass('d-none');
+            $('#honor_awards_container').removeClass('d-none');
+        });
+
+        $('#is_completed').on('change', (e) => {
+            if($('#is_completed').prop('checked'))  {
+                $('#period_of_attendance_to_container').removeClass('d-none');
+            } else {
+                $('#period_of_attendance_to_container').addClass('d-none');
+            }
+        });
+
+        const $inputField = $('#honor_award');
+        let honors = [];
+
+        function updateHiddenField() {
+            $('#honors_awards').val(honors.join(','));
+        }
+
+        function addTag(value) {
+            if (value.trim() === '') return;
+
+            const $honor = $(`<div class="btn-group m-1 taggable-container"><button type="button" class="btn btn-primary">${value}</button></div>`);
+            const $removeButton = $('<button type="button" class="btn btn-primary">X</button>');
+
+            $removeButton.on('click', function() {
+                $honor.remove();
+                honors = honors.filter(v => v !== value);
+                updateHiddenField();
+            });
+
+            $honor.append($removeButton);
+            $honor.insertBefore($inputField);
+
+            honors.push(value);
+            updateHiddenField();
+        }
+
+        $inputField.on('keydown', function(e) {
+            if ((e.key === 'Enter' || e.key === ',' || e.keyCode == 9) && $inputField.val().trim() !== '') {
+                $(this).focus();
+                e.preventDefault();
+                let inputValue = $inputField.val().replace(',', '').trim();
+                addTag($inputField.val());
+                $inputField.val('');
+            } else if(e.key === 'Backspace' && $inputField.val() === '') {
+                removeLastHonor();
+            }
+        });
+
+        $inputField.on('blur', function() {
+            if ($inputField.val()) {
+                addTag($inputField.val());
+                $inputField.val('');
+            }
+        });
+
+        function removeLastHonor() {
+            if (honors.length > 0) {
+                honors.pop();
+                renderHonors();
+                updateHiddenField();
+            }
+        }
+
+        function renderHonors() {
+            $('.taggable-container').remove();
+            honors.forEach(value => {
+                const $honor = $(`<div class="btn-group m-1 taggable-container"><button type="button" class="btn btn-primary">${value}</button></div>`);
+                const $removeButton = $('<button type="button" class="btn btn-primary">X</button>');
+
+                $removeButton.on('click', function() {
+                    $honor.remove();
+                    honors = honors.filter(v => v !== value);
+                    updateHiddenField();
+                });
+            
+                $honor.append($removeButton);
+                $honor.insertBefore($inputField);
+            });
+        }
     });
+
+    // document.addEventListener('DOMContentLoaded', function () {
+    //     const image = document.getElementById('image');
+    //     const inputImage = document.getElementById('inputImage');
+
+    //     const cropper = new Cropper(image, {
+    //         aspectRatio: 1, // Square aspect ratio
+    //         viewMode: 3, // Ensures the crop area stays within the canvas
+    //         autoCropArea: 1,
+    //         movable: true, // Allow moving the crop area
+    //         zoomable: true, // Allow zooming the image
+    //         responsive: true,
+    //         dragMode: 'move',
+    //         modal: true,
+    //         scalable: false,
+    //         rotatable: true,
+    //         cropBoxResizable: false,
+    //         guides: false,
+    //         toggleDragModeOnDblclick: false,
+    //         minContainerWidth: 100,
+    //         minContainerHeight: 100,
+    //         minCropBoxWidth: 100,
+    //         minCropBoxHeight: 100
+    //     });
+
+    //     // Handle file upload
+    //     inputImage.addEventListener('change', function (event) {
+    //         const files = event.target.files;
+    //         if (files && files.length) {
+    //         const reader = new FileReader();
+    //         reader.onload = function (e) {
+    //             image.src = e.target.result;
+    //             cropper.replace(image.src);
+    //         };
+    //         reader.readAsDataURL(files[0]);
+    //         }
+    //     });
+
+    //     // Zoom control through the slider
+    //     zoomRange.addEventListener('input', function () {
+    //         const zoomLevel = parseFloat(this.value);
+    //         console.log("zoomLevel: " + zoomLevel)
+    //         cropper.zoomTo(zoomLevel);
+    //     });
+
+    //     // Crop image
+    //     document.getElementById('cropImage').addEventListener('click', function () {
+    //         const croppedCanvas = cropper.getCroppedCanvas({
+    //             width: 300, // Final width of cropped image
+    //             height: 300, // Final height of cropped image
+    //         });
+
+    //         // You can send the croppedCanvas to the server or display it
+    //         const croppedImageDataURL = croppedCanvas.toDataURL();
+    //         console.log(croppedImageDataURL);
+            
+    //         // Optional: display the cropped image
+    //         document.body.append(croppedCanvas);
+    //     });
+    //     });
 </script>
 @endsection

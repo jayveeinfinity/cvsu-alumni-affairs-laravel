@@ -22,7 +22,7 @@ class UserProfile extends Model
 
     public function educations()
     {
-        return $this->hasMany(Education::class);
+        return $this->hasMany(Education::class)->orderBy('date_started', 'DESC');
     }
 
     public function workExperiences()

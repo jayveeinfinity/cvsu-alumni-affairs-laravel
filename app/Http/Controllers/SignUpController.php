@@ -47,12 +47,15 @@ class SignUpController extends Controller
                 'last_name' => $validated['last_name']
             ]);
 
+            $course = $validated['course'] == 'BSIT' ? 'Bachelor of Science in Information Technology (BSIT)' : 'Bachelor of Science in Computer Science (BSCS)';
+
             // Add Educational Background
             $education = Education::create([
                 'user_profile_id' => $userProfile->id,
+                'level' => 'college',
                 'institution' => 'Cavite State University Main Campus',
-                'degree' => $validated['course'],
-                'graduation_year' => $validated['year_graduated']
+                'degree' => $course,
+                'date_ended' => $validated['date_ended']
             ]);
 
             DB::commit();

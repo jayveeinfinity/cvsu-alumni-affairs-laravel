@@ -91,8 +91,17 @@
                                     @foreach($user->profile->educations as $education)
                                     <li>
                                         <span class="timeline__title d-block">{{ $education->institution }}</span>
-                                        <span class="timeline__subtitle d-block">Bachelor of Science In Information Technology ({{ $education->graduation_year }})</span>
-                                        <!-- <p class="mt-2 fw-medium">CareerBuilder offers a complete career portal, helping job seekers find better career opportunities and bridge skill gaps through a partnership with Capella Learning Solutions.</p> -->
+                                        <span class="timeline__subtitle d-block">{{ $education->degree }} (@if($education->date_started)
+                                            {{ $education->date_started }} -
+                                        @endif{{ $education->date_ended ?? 'PRESENT' }})</span>
+                                        @if($education->honors)
+                                            <!-- <ul>
+                                            @foreach($education->honors as $honor)
+                                                <li class="mb-0">{{ $honor }}</li>
+                                            @endforeach
+                                            </ul> -->
+                                            {{ collect($education->honors)->implode(', ') }}
+                                        @endif
                                     </li>
                                     @endforeach
                                 </ul>

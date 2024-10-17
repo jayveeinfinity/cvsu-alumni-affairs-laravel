@@ -32,12 +32,12 @@ class StoreRequest extends FormRequest
                         ->where('first_name', $this->input('first_name'))
                         ->where('last_name', $this->input('last_name'))
                         ->where('course', $this->input('course'))
-                        ->where('year_graduted', $this->input('year_graduated'));
+                        ->where('date_ended', $this->input('date_ended'));
                 }),
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'course' => 'required|string|max:255',
-            'year_graduated' => 'required|digits:4'
+            'date_ended' => 'required|digits:4'
         ];
     }
     
@@ -58,8 +58,8 @@ class StoreRequest extends FormRequest
             'first_name.required' => 'The first name field is required.',
             'last_name.required' => 'The last name field is required.',
             'course.required' => 'The course field is required.',
-            'year_graduated.required' => 'The year graduated field is required.',
-            'year_graduated.digits' => 'The year graduated must be exactly 4 digits.'
+            'date_ended.required' => 'The year graduated field is required.',
+            'date_ended.digits' => 'The year graduated must be exactly 4 digits.'
         ];
     }
 }
