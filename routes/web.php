@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\IndustryController;
 use App\Http\Controllers\Admin\JobPostingController;
 use App\Http\Controllers\Admin\AlumniProfileController;
+use App\Http\Controllers\EducationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,5 +81,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/profile', [UserProfileController::class, 'index'])->name('user.profile.index');
         Route::get('/edit/{user_id}', [UserProfileController::class, 'edit'])->name('user.profile.edit');
         Route::post('/edit/{user_id}', [UserProfileController::class, 'update'])->name('user.profile.update');
+        Route::post('/edit/education/store', [EducationController::class, 'store'])->name('user.profile.education.store');
     });
 });

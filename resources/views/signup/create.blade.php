@@ -71,8 +71,8 @@
                                     </div>
                                     <div class="row row-cols-sm-2 row-cols-1 g-3">
                                             <div class="rt-input-group">
-                                                <label for="year_graduated">Year graduated</label>
-                                                <select name="year_graduated" name="year_graduated" class="form-select">
+                                                <label for="date_ended">Year graduated</label>
+                                                <select name="date_ended" name="date_ended" class="form-select">
                                                     <option value="" selected disabled>Choose year graduated...</option>
                                                     {{ $last = 1906 }}
                                                     {{ $now = date('Y') }}
