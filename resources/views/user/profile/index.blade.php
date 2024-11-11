@@ -111,21 +111,23 @@
                         </div>
                         <div id="experience" class="mb-30">
                             <h6 class="fw-semibold mb-20 text-capitalize">Work Experience</h6>
-                            @if($user->profile && $user->profile->work_experience)
-                                <ul class="timeline">
-                                    <li>
-                                        <span class="timeline__title d-block">Software Engineer</span>
-                                        <span class="timeline__subtitle d-block">Reactheme   (2016- Present)</span>
-                                        <p class="mt-2 fw-medium">Software engineers apply engineering principles and knowledge of programming languages to build software solutions for end users.</p>
-                                    </li>
-                                </ul>
-                            @else
-                                <p>No work experience yet.</p>
-                            @endif
+                            <ul class="timeline">
+                                @forelse($user->profile->work_experiences as $work_experience)
+                                <li>
+                                    <span class="timeline__title d-block">{{ $work_experience->position }}</span>
+                                    <span class="timeline__subtitle d-block">{{ $work_experience->institution }} (@if($work_experience->date_started)
+                                        {{ $work_experience->date_started }} -
+                                    @endif{{ $work_experience->date_ended ?? 'PRESENT' }})</span>
+                                    <p class="mt-2 fw-medium">{{ $work_experience->about }}</p>
+                                </li>
+                                @empty
+                                    <p>No work experience yet.</p>
+                                @endforelse
+                            </ul>
                         </div>  
                     </div>
                     <div id="skill" class="mb-30">
-                        <h6 class="fw-semibold mb-20">Skills and Experience</h6>
+                        <h6 class="fw-semibold mb-20">Skills</h6>
                         <div class="job__tags job__details__tags">
                             <a href="#" class="job__tag">Javascript</a>
                             <a href="#" class="job__tag">user interface</a>

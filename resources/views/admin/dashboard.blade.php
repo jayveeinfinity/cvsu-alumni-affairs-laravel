@@ -75,41 +75,34 @@
       </div>
       <div class="col-lg-6">
         <div class="card">
-        <div class="card-header border-0">
-        <div class="d-flex justify-content-between">
-        <h3 class="card-title">Graduates per year</h3>
-        <a href="javascript:void(0);">View Report</a>
+          <div class="card-header border-0">
+            <div class="d-flex justify-content-between">
+              <h3 class="card-title">Graduates per year</h3>
+              <a href="javascript:void(0);">View Report</a>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="position-relative mb-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+              <canvas id="graduatesChart" height="400" width="625" style="display: block; width: 625px; height: 200px;" class="chartjs-render-monitor"></canvas>
+            </div>
+          </div>
         </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header border-0">
+            <div class="d-flex justify-content-between">
+              <h3 class="card-title">Graduates per industries</h3>
+              <a href="javascript:void(0);">View Report</a>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="position-relative mb-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+              <canvas id="graduatesIndustriesChart" height="400" width="625" style="display: block; width: 625px; height: 200px;" class="chartjs-render-monitor"></canvas>
+            </div>
+          </div>
         </div>
-        <div class="card-body">
-        <!-- <div class="d-flex">
-          <p class="d-flex flex-column">
-          <span class="text-bold text-lg">$18,230.00</span>
-          <span>Sales Over Time</span>
-          </p>
-          <p class="ml-auto d-flex flex-column text-right">
-          <span class="text-success">
-          <i class="fas fa-arrow-up"></i> 33.1%
-          </span>
-          <span class="text-muted">Since last month</span>
-          </p>
-        </div> -->
-
-        <div class="position-relative mb-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-          <canvas id="graduatesChart" height="400" width="625" style="display: block; width: 625px; height: 200px;" class="chartjs-render-monitor"></canvas>
-        </div>
-        <!-- <div class="d-flex flex-row justify-content-end">
-          <span class="mr-2">
-          <i class="fas fa-square text-primary"></i> This year
-          </span>
-          <span>
-          <i class="fas fa-square text-gray"></i> Last year
-          </span>
-        </div> -->
-        </div>
-
-        </div>
-        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -122,6 +115,36 @@
       type: 'bar',  // Change this to 'line' if you prefer a line chart
       data: {
           labels: @json($chartData['years']),  // Years
+          datasets: [
+              {
+                  label: 'BSIT Graduates',
+                  data: @json($chartData['bsit']),  // Data for BSIT
+                  backgroundColor: 'rgba(75, 192, 192, 1)',  // Color for bars
+                  borderColor: 'rgba(75, 192, 192, 1)',  // Border color
+                  borderWidth: 1
+              },
+              {
+                  label: 'BSCS Graduates',
+                  data: @json($chartData['bscs']),  // Data for BSCS
+                  backgroundColor: 'rgba(153, 102, 255, 1)',  // Color for bars
+                  borderColor: 'rgba(153, 102, 255, 1)',  // Border color
+                  borderWidth: 1
+              }
+          ]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+  });
+  var ctx2 = document.getElementById('graduatesIndustriesChart').getContext('2d');
+  var graduatesIndustriesChart = new Chart(ctx, {
+      type: 'bar',  // Change this to 'line' if you prefer a line chart
+      data: {
+          labels: @json($chartData['industries']),
           datasets: [
               {
                   label: 'BSIT Graduates',
