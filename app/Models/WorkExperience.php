@@ -9,12 +9,18 @@ class WorkExperience extends Model
 {
     use HasFactory;
 
+    protected $table = 'work_experiences';
+
     protected $fillable = [
-        'user_profile_id', 'job_title', 'company_name', 'description', 'start_date', 'end_date'
+        'user_profile_id', 'position', 'institution', 'employment_type', 'industry_id', 'date_started', 'date_ended', 'about'
     ];
 
     public function userProfile()
     {
         return $this->belongsTo(UserProfile::class);
+    }
+
+    public function industry() {
+        return $this->belongsTo(Industry::class);
     }
 }

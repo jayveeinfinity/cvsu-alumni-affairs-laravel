@@ -36,8 +36,8 @@
         margin-top: 10px;
     }
 
-    button {
-        margin-right: 5px;
+    .taggable-container:nth-child(0) {
+        border-right: 1px solid #d8d9db !important;
     }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" />
@@ -51,8 +51,9 @@
             <nav>
                 <div class="nav nav-tabs">
                     <a class="nav-link active" href="#info" data-tab="info">Personal Details</a>
-                    <a class="nav-link" href="#education" data-tab="education">Educational Background</a>     
-                    <a class="nav-link" href="#experience" data-tab="experience">Work Experience</a>                         
+                    <a class="nav-link" href="#education" data-tab="education">Educational Background</a>
+                    <a class="nav-link" href="#experience" data-tab="experience">Work Experience</a>
+                    <a class="nav-link" href="#skills" data-tab="skills">Skills</a>
                 </div>
             </nav>
             <div class="tab-content clearfix">
@@ -248,10 +249,55 @@
                         <div class="alert alert-danger pl-0 d-none" id="addWorkExperienceAlert">
                                 <ul class="mb-0" id="errorList"></ul>
                             </div>
-                            <h6>Work Experience <button class="btn btn-sm fill__btn border-6 font-xs" data-toggle="modal" data-target="#addEducationForm" data-backdrop="static" data-keyboard="false">Add</button></h6>
-                            @if($user->profile->educations)
-                                <p>No educational background yet. To add one, click add</p>
-                            @endif
+                            <h6>Work Experience <button class="btn btn-sm fill__btn border-6 font-xs" data-toggle="modal" data-target="#addWorkExperienceForm" data-backdrop="static" data-keyboard="false">Add</button></h6>
+                            <div class="row g-30">
+                            @forelse($user->profile->work_experiences as $work_experience)
+                                <div class="col-lg-12">
+                                    <div class="rts__job__card__big style__gradient justify-content-between d-flex gap-4 align-items-center">
+                                        <div class="d-flex flex-wrap flex-md-nowrap flex-lg-wrap flex-xl-nowrap gap-4 align-items-center">
+                                            <div class="company__icon rounded-2">
+                                                <!-- <img src="assets/img/home-1/company/apple.svg" alt=""> -->
+                                                <i class="fas fa-building fa-3x"></i>
+                                            </div>
+                                            <div class="job__meta w-100 d-flex flex-column gap-2">
+                                                <div class="d-flex justify-content-between align-items-center gap-3">
+                                                    <span class="job__title h6 mb-0">{{ $work_experience->position }} </span>
+                                                </div>
+                                                <div class="d-flex gap-3 gap-md-4 flex-wrap mb-2">
+                                                    <div class="d-flex gap-2 align-items-center">
+                                                        {{ $work_experience->institution }}
+                                                    </div>
+                                                    <div class="d-flex gap-2 align-items-center">
+                                                        <i class="fas fa-calendar"></i> @if($work_experience->date_started) {{ $work_experience->date_started }} - @endif {{ $work_experience->date_ended ?? 'PRESENT' }}
+                                                    </div>
+                                                </div>
+                                                <div class="job__tags d-flex flex-wrap gap-3">
+                                                    <a>{{ Str::title($work_experience->employment_type) }}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="bookmark__btn">
+                                                <i class="fas fa-pencil-alt"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            @empty
+                                <p>No work experience background yet. To add one, click add</p>
+                            @endforelse
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="my__details tab-pane" id="skills">
+                    <div class="info__field mt-5">
+                        <div class="alert alert-danger pl-0 d-none" id="addSkillsAlert">
+                                <ul class="mb-0" id="errorList"></ul>
+                            </div>
+                            <h6>Skills <button class="btn btn-sm fill__btn border-6 font-xs" data-toggle="modal" data-target="#addSkillsForm" data-backdrop="static" data-keyboard="false">Add</button></h6>
+                            <div class="row g-30">
+                                <p>No skills yet. To add one, click add</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -346,6 +392,75 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary" data-click="saveEducation">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Work Experience Modal -->
+<div class="modal fade" id="addWorkExperienceForm" tabindex="-1" role="dialog" aria-labelledby="addWorkExperienceFormTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addWorkExperienceFormTitle"><i class="fas fa-briefcase"></i> Add work experience form</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body py-3 px-4 pb-5">
+                <div class="alert alert-danger pl-0 d-none" id="addExperienceAlert">
+                    <ul class="mb-0" id="weErrorList"></ul>
+                </div>
+                <div class="info__field">
+                    <div class="row row-cols-1 g-3">
+                        <div class="rt-input-group" id="position_container">
+                            <label for="position">Position*</label>
+                            <input type="text" name="position" id="position" placeholder="Type position..." required>
+                        </div>
+                        <div class="rt-input-group" id="we_institution_container">
+                            <label for="we_institution">Institution*</label>
+                            <input type="text" name="we_institution" id="we_institution" placeholder="Type institution..." required>
+                        </div>
+                        <div class="rt-input-group">
+                            <label for="employment_type">Type of Employement*</label>
+                            <select name="employment_type" id="employment_type" class="form-select" required>
+                                <option value="" selected disabled>Choose type of employement...</option>
+                                <option value="casual">Casual</option>
+                                <option value="constractual">Contractual</option>
+                                <option value="full_time">Full time</option>
+                                <option value="intership">Intership</option>
+                                <option value="part_time">Part time</option>
+                                <option value="temporary">Temporary</option>
+                            </select>
+                        </div>
+                        <div class="rt-input-group" id="industry_container">
+                            <label for="industry">Nature of work/Industry*</label>
+                            <select name="industry" id="industry" class="form-select" required>
+                                <option value="" selected disabled>Choose nature of work/industry...</option>
+                                @foreach($industries as $industry)
+                                    <option value="{{ $industry->id }}">{{ $industry->label }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="rt-input-group" id="we_period_of_attendance_from_container">
+                            <label for="we_period_of_attendance_from">Period of Attendance (From):*</label>
+                            <input type="text" name="we_period_of_attendance_from" id="we_period_of_attendance_from" placeholder="Type year...">
+                        </div>
+                        <div class="rt-input-group" id="we_period_of_attendance_to_container">
+                            <label for="we_period_of_attendance_to">Period of Attendance (To): <span class="d-inline-block mb-0 fst-italic text-lowercase" style="font-size: 14px;">(optional)</span></label>
+                            <input type="text" name="we_period_of_attendance_to" id="we_period_of_attendance_to" placeholder="Type year...">
+                        </div>
+                        <div class="row row-cols-1">
+                            <div class="rt-input-group">
+                                <label for="we_about">About</label>
+                                <textarea name="we_about" id="we_about" placeholder="Tell us about yourself..." required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-click="saveWorkExperience">Save changes</button>
             </div>
         </div>
     </div>
@@ -445,6 +560,50 @@
 
                             if ($('#addAlumniAlert').hasClass("d-none")) {
                                 $('#addAlumniAlert').removeClass("d-none");
+                            }
+                        } else {
+                            toastr.error('An unexpected error occurred.', 'Something went wrong...');
+                        }
+                    }
+                });
+                break;
+            case "saveWorkExperience":
+                var formData = new FormData();
+                formData.append('_token', "{{ csrf_token() }}");
+                formData.append('position', $('#position').val());
+                formData.append('institution', $('#we_institution').val());
+                formData.append('employment_type', $('#employment_type').find(":selected").val());
+                formData.append('industry_id', $('#industry').find(":selected").val());
+                formData.append('date_started', $('#we_period_of_attendance_from').val());
+                formData.append('date_ended', $('#we_period_of_attendance_to').val());
+                formData.append('about', $('#we_about').val());
+                $.ajax({
+                    method: "POST",
+                    url: "{{ route('user.profile.work_experience.store') }}",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: (response) =>  {
+                        toastr.success('Successfully added a work experience!', 'Profile updated');
+                        $('#addWorkExperienceForm').modal('hide');
+                    },
+                    error: (response) => {
+                        $('#weErrorList').empty();
+
+                        if (response.responseJSON) {
+                            const errors = response.responseJSON.errors;
+                            for (const field in errors) {
+                                if (errors.hasOwnProperty(field)) {
+                                    const errorMessages = errors[field];
+                                    errorMessages.forEach(function(message) {
+                                        const listItem = $('<li></li>').text(`${message}`);
+                                        $('#weErrorList').append(listItem);
+                                    });
+                                }
+                            }
+
+                            if ($('#addExperienceAlert').hasClass("d-none")) {
+                                $('#addExperienceAlert').removeClass("d-none");
                             }
                         } else {
                             toastr.error('An unexpected error occurred.', 'Something went wrong...');

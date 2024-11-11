@@ -25,9 +25,9 @@ class UserProfile extends Model
         return $this->hasMany(Education::class)->orderBy('date_started', 'DESC');
     }
 
-    public function workExperiences()
+    public function work_experiences()
     {
-        return $this->hasMany(WorkExperience::class);
+        return $this->hasMany(WorkExperience::class)->orderBy('date_started', 'DESC');
     }
 
     // public function certifications()

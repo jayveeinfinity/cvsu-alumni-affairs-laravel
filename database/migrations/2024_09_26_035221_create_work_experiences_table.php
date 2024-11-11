@@ -16,12 +16,17 @@ class CreateWorkExperiencesTable extends Migration
         Schema::create('work_experiences', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_profile_id');
-            $table->string('certification_title');
-            $table->string('issuing_organization');
-            $table->date('issued_date')->nullable();
+            $table->string('position');
+            $table->string('institution');
+            $table->string('employment_type');
+            $table->unsignedBigInteger('industry_id');
+            $table->year('date_started');
+            $table->year('date_ended')->nullable();
+            $table->text('about')->nullable();
             $table->timestamps();
 
             $table->foreign('user_profile_id')->references('id')->on('user_profiles')->onDelete('cascade');
+            $table->foreign('industry_id')->references('id')->on('industries')->onDelete('cascade');
         });
     }
 

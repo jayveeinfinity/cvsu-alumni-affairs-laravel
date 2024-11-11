@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Industry;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
 
@@ -16,8 +17,9 @@ class UserProfileController extends Controller
     public function edit($user_id) {
         $user = auth()->user();
         $profile = UserProfile::where('user_id', $user->id)->first();
+        $industries = Industry::all();
 
-        return view('user.profile.edit', compact('user'));
+        return view('user.profile.edit', compact('user', 'industries'));
     }
 
     public function update(Request $request) {

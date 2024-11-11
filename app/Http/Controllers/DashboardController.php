@@ -64,6 +64,16 @@ class DashboardController extends Controller
             'bscs' => $bscsData
         ];
 
+        $graduates_industries_data = DB::table('work_experiences')
+            ->select('industry_id', DB::raw('COUNT(*) as total'))
+            ->groupBy('user_profile_id', 'industry_id')
+            ->orderBy('industry_id', 'asc')
+            ->get();
+
+        $chartData2 = [
+            'industries'
+        ];
+
         return view('admin.dashboard', compact('graduates', 'jobPostings', 'users', 'userProfiles', 'chartData'));
     }
 
