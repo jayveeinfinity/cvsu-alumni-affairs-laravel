@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
 use App\Models\User;
@@ -9,6 +9,7 @@ use App\Models\UserProfile;
 use Illuminate\Http\Request;
 use App\Models\AlumniProfile;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
@@ -64,17 +65,28 @@ class DashboardController extends Controller
             'bscs' => $bscsData
         ];
 
-        $graduates_industries_data = DB::table('work_experiences')
-            ->select('industry_id', DB::raw('COUNT(*) as total'))
-            ->groupBy('user_profile_id', 'industry_id')
-            ->orderBy('industry_id', 'asc')
+        $industries = [];
+
+        $alumniCountPerIndustry = DB::table('industries')
+            ->leftJoin('work_experiences', 'industries.id', '=', 'work_experiences.industry_id')
+            ->select('industries.label', DB::raw('COUNT(DISTINCT work_experiences.user_profile_id) as alumni_count'))
+            ->groupBy('industries.id', 'industries.label')
+            ->orderByRaw('CASE WHEN COUNT(DISTINCT work_experiences.user_profile_id) > 0 THEN 1 ELSE 0 END DESC')
+            ->orderBy('alumni_count', 'desc')
+            ->orderBy('industries.label', 'asc')
+            ->limit(20)
             ->get();
 
+        foreach ($alumniCountPerIndustry as $industry) {
+            $industries[$industry->label] = $industry->alumni_count;
+        }
+
         $chartData2 = [
-            'industries'
+            'industries' => array_keys($industries),
+            'industry_count' => array_values($industries)
         ];
 
-        return view('admin.dashboard', compact('graduates', 'jobPostings', 'users', 'userProfiles', 'chartData'));
+        return view('admin.dashboard', compact('graduates', 'jobPostings', 'users', 'userProfiles', 'chartData', 'chartData2'));
     }
 
     /**

@@ -78,7 +78,7 @@
           <div class="card-header border-0">
             <div class="d-flex justify-content-between">
               <h3 class="card-title">Graduates per year</h3>
-              <a href="javascript:void(0);">View Report</a>
+              <a href="javascript:void(0);" data-download="chart" data-id="graduatesChart">View Report</a>
             </div>
           </div>
           <div class="card-body">
@@ -93,7 +93,7 @@
           <div class="card-header border-0">
             <div class="d-flex justify-content-between">
               <h3 class="card-title">Graduates per industries</h3>
-              <a href="javascript:void(0);">View Report</a>
+              <a href="javascript:void(0);" data-download="chart" data-id="graduatesIndustriesChart">View Report</a>
             </div>
           </div>
           <div class="card-body">
@@ -109,6 +109,7 @@
 @endsection 
 
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
 <script>
   var ctx = document.getElementById('graduatesChart').getContext('2d');
   var graduatesChart = new Chart(ctx, {
@@ -141,26 +142,19 @@
       }
   });
   var ctx2 = document.getElementById('graduatesIndustriesChart').getContext('2d');
-  var graduatesIndustriesChart = new Chart(ctx, {
+  var graduatesIndustriesChart = new Chart(ctx2, {
       type: 'bar',  // Change this to 'line' if you prefer a line chart
       data: {
-          labels: @json($chartData['industries']),
+          labels: @json($chartData2['industries']),
           datasets: [
               {
-                  label: 'BSIT Graduates',
-                  data: @json($chartData['bsit']),  // Data for BSIT
+                  label: 'Count',
+                  data: @json($chartData2['industry_count']),  // Data for BSIT
                   backgroundColor: 'rgba(75, 192, 192, 1)',  // Color for bars
                   borderColor: 'rgba(75, 192, 192, 1)',  // Border color
                   borderWidth: 1
-              },
-              {
-                  label: 'BSCS Graduates',
-                  data: @json($chartData['bscs']),  // Data for BSCS
-                  backgroundColor: 'rgba(153, 102, 255, 1)',  // Color for bars
-                  borderColor: 'rgba(153, 102, 255, 1)',  // Border color
-                  borderWidth: 1
               }
-          ]
+            ]
       },
       options: {
           scales: {
@@ -170,5 +164,45 @@
           }
       }
   });
+
+  document.addEventListener("click", (e) => {
+    e = e || window.event;
+    var target = e.target || e.srcElement;
+    switch(target.dataset.download) {
+      case "chart":
+        downloadChartAsPDF(target.dataset.id);
+        break;
+    }
+  });
+
+  function downloadChartAsPDF(chartId) {
+    const chartContainer = document.getElementById(chartId);
+    
+    // Use html2canvas to capture the chart as an image
+    html2canvas(chartContainer, { scale: 1 }).then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        
+        // Create a new PDF document
+        const pdf = new jsPDF('portrait', 'mm', 'a4');
+
+        // Add a header to the PDF
+        const headerText = chartId == "graduatesIndustriesChart" ? "Graduates per industries" : "Graduates per year" ;
+        pdf.setFontSize(16);
+        pdf.text(headerText, 10, 20); 
+        
+        // Calculate width and height to fit the image on A4
+        const pdfWidth = pdf.internal.pageSize.width;
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        // Set position for the image below the header
+        const imageYPosition = 30;
+
+        // Add the image to the PDF
+        pdf.addImage(imgData, 'PNG', 0, imageYPosition, pdfWidth, pdfHeight);
+
+        // Save the PDF
+        pdf.save(chartId + '-chart.pdf');
+    });
+  }
 </script>
 @endsection
